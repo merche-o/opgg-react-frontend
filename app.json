@@ -1,0 +1,12 @@
+{
+  "name": "opgg-frontend",
+  "displayName": "opgg-frontend",
+  "expo": {
+    "name": "opgg-frontend",
+    "slug": "opgg-frontend",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
