@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import SearchBar from './components/SearchBar';
+import SearchAppBar from './components/SearchBar';
+import TagList from './components/TagList'
 
 export default function App() {
   const [input, setInput] = useState('');
@@ -8,15 +9,15 @@ export default function App() {
   const updateInput = async (input) => {
 
   }
-  
+
   return (
     <View style={styles.container}>
 
-      <SearchBar 
+      <SearchAppBar 
        input={input} 
        onChange={updateInput}
       />
-      <Text>Open up App.tsx to start working on your app!</Text>
+      <TagList />
     </View>
   );
 }
