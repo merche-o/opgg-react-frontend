@@ -5,14 +5,16 @@ import PlayerBanner from './components/PlayerBanner';
 import SearchAppBar from './components/SearchBar';
 import TagList from './components/TagList'
 import RankCard from './components/RankCard'
-
+import GameSummaryTab from './components/GameSummaryTab'
+import ChampionStatTab from './components/ChampionStatTab'
+import HistoryCard from './components/HistoryCard'
 export default function App() {
   const [input, setInput] = useState('');
   const classes = useStyles();
 
 
   return (
-    <View style={styles.container}>
+    <View >
       <SearchAppBar
       />
       <Container>
@@ -22,15 +24,15 @@ export default function App() {
       </Container>
       <div className={classes.line}>
         <Container>
-          <Grid container spacing={3} className={classes.statsDataContainer}>
-            <Grid item container direction="row" spacing={3} xs={4}>
+          <Grid container spacing={3} className={classes.marginContainer}>
+            <Grid item container  className={classes.statsDataContainer} direction="row" spacing={3} xs={4}>
               <Grid item xs={12}> <RankCard /></Grid>
-              <Grid item xs={12}> bottom left</Grid>
+              <Grid item xs={12}> <ChampionStatTab /></Grid>
             </Grid>
             <Grid item xs={8}>
-              <Grid item container direction="row" spacing={3} xs={2}>
-                <Grid item xs={12}> top right</Grid>
-                <Grid item xs={12}> bottom right</Grid>
+              <Grid item container direction="row" spacing={3} xs={12}>
+                <Grid item xs={12}> <GameSummaryTab /></Grid>
+                <Grid item xs={12}> <HistoryCard /></Grid>
               </Grid>
             </Grid>
           </Grid>
@@ -40,18 +42,15 @@ export default function App() {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: '#fff',
-  },
-
-});
-
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     line: {
-      borderTop: "1px solid #d8d8d8"
+      borderTop: "1px solid #d8d8d8",
+
+    },
+    marginContainer:{
+      marginTop: "15px",
 
     },
     statsDataContainer: {
