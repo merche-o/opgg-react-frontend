@@ -4,6 +4,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import PlayerBanner from './components/PlayerBanner';
 import SearchAppBar from './components/SearchBar';
 import TagList from './components/TagList'
+import RankCard from './components/RankCard'
 
 export default function App() {
   const [input, setInput] = useState('');
@@ -22,12 +23,15 @@ export default function App() {
       <div className={classes.line}>
         <Container>
           <Grid container spacing={3} className={classes.statsDataContainer}>
-            <Grid item container direction="row" spacing={3} xs={2}>
-              <Grid item xs={12}> top left</Grid>
+            <Grid item container direction="row" spacing={3} xs={4}>
+              <Grid item xs={12}> <RankCard /></Grid>
               <Grid item xs={12}> bottom left</Grid>
             </Grid>
-            <Grid item xs={10}>
-              right
+            <Grid item xs={8}>
+              <Grid item container direction="row" spacing={3} xs={2}>
+                <Grid item xs={12}> top right</Grid>
+                <Grid item xs={12}> bottom right</Grid>
+              </Grid>
             </Grid>
           </Grid>
         </Container>
