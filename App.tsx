@@ -43,7 +43,6 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#fff',
-    justifyContent: 'center',
   },
 
 });
@@ -57,7 +56,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     statsDataContainer: {
       display: "flex",
-      padding: "15px",
+      paddingTop: "15px",
       justifyContent: "center",
       alignItems: "center",
     }
