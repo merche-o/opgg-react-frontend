@@ -4,6 +4,8 @@ import Button from "@material-ui/core/Button";
 import { Box, Grid, Paper, Tab, Tabs, Typography } from "@material-ui/core";
 
 import Image from "material-ui-image";
+import WinRateCell from "./WinRateCell"
+import GameHistoryCell from "./GameHistoryCell"
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -64,13 +66,16 @@ function TabPanel(props: TabPanelProps) {
           <Grid container className={classes.cardPosition}>
             <Grid item xs>
           <Paper variant="outlined" square>
-            <Typography>{children}fsdf </Typography>
-          </Paper>
+                  <WinRateCell /> 
+         </Paper>
           </Grid>
           <Grid item xs>
 
           <Paper variant="outlined" square>
-            <Typography>{children} dfs </Typography>
+        <GameHistoryCell/>
+        <GameHistoryCell/>
+        <GameHistoryCell/>
+
           </Paper>
           </Grid>
           <Grid item xs>

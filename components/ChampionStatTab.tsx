@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import { Box, Grid, Paper,  Tab, Tabs, Typography } from '@material-ui/core';
+import ChampionStatCell from "./ChampionStatCell"
+import RankWinStatCell from "./RankWinStatCell"
 
 import Image from 'material-ui-image'
 
@@ -46,7 +48,6 @@ const useStyles = makeStyles((theme: Theme) =>
       
       function TabPanel(props: TabPanelProps) {
         const { children, value, index, ...other } = props;
-      
         return (
           <div
             role="tabpanel"
@@ -55,10 +56,11 @@ const useStyles = makeStyles((theme: Theme) =>
             aria-labelledby={`simple-tab-${index}`}
             {...other}
           >
-            {value === index && (
-              <Box p={3}>
-                <Typography>{children}</Typography>
-              </Box>
+            {value === index && value === 0 as typeof value && (
+                <ChampionStatCell />
+            )}
+             {value === index && value === 1 as typeof value && (
+                <RankWinStatCell />
             )}
           </div>
         );
