@@ -1,5 +1,6 @@
 import React from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
 import { Avatar, Box, Grid, Paper } from '@material-ui/core';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -8,8 +9,7 @@ const useStyles = makeStyles((theme: Theme) =>
       flexGrow: 1,
     },
     gridContainer:{
-        padding:"33px",
-        height:"100%"
+        padding:"15px",
     },
     firstLine: {
       color: "#5e5e5e",
@@ -30,8 +30,7 @@ const useStyles = makeStyles((theme: Theme) =>
     helveticaF:{
         fontSize: "11px",
         fontFamily: "Helvetica",
-        textAlign: "center",
-     //   height: "100%"
+        textAlign: "center"
     },
     gridTileStyle : {
         position: 'relative',
@@ -48,7 +47,7 @@ const useStyles = makeStyles((theme: Theme) =>
     greenWR: { color: "#2daf7f" },
     redWR: { color: "#d0021b" },
     yellowWR: { color: "#e19205" },
-    grey1Color:{color: "#666666"},
+    grey1Color:{color: "#555555"},
     grey2Color:{color: "#999999"},
     blackColor:{color : "#333333"},
     textBold: {
@@ -63,24 +62,30 @@ const useStyles = makeStyles((theme: Theme) =>
     smallText :{
         fontSize : "12px"
     },
+    gridItem:{
+        height:"100%"
+      }
 
 
   })
 );
 
 /// have to loop over taglist
-export default function WinRateCell() {
+export default function PositionCell() {
     const classes = useStyles();
     return (
-                <Grid container spacing={0} direction="row" alignContent="center" alignItems="center" className={classes.gridContainer}>
-                    <Grid item xs={6} className={classes.helveticaF + " " + classes.smallText + " " + classes.grey1Color}>
-                    win data
-                    <Box alignContent="center">    <Avatar  src="https://opgg-static.akamaized.net/images/medals/diamond_1.png" /> </Box>
+        <div className={classes.root}>
+                <Grid container  spacing={0} alignContent="center" alignItems="center">
+              
+                    <Grid item xs={4} className={classes.gridItem}>
+                        <Avatar src="https://opgg-static.akamaized.net/images/medals/diamond_1.png" />
                     </Grid>
-                    <Grid item xs={6} container direction="row">
-                        <Grid item xs={12} className={classes.helveticaF + " " + classes.textBold + " " + classes.blackColor}>Title</Grid>
-                        <Grid item xs={12} className={classes.helveticaF + " " + classes.textBold + " " + classes.textBig}> position</Grid>
+                    <Grid item xs={7} container direction="row" className={classes.gridItem}>
+                        <Grid item xs={12} className={classes.helveticaF + " " + classes.blackColor + " " + classes.textMedium}>Title</Grid>
+                        <Grid item xs={12} className={classes.helveticaF + " " + classes.grey1Color}> <Box fontWeight='fontWeightBold' display='inline'>position</Box> (details)</Grid>
+
                     </Grid>
                 </Grid>
+        </div>
     );
 }

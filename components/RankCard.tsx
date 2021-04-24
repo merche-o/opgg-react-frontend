@@ -56,7 +56,7 @@ export default function RankCard() {
         <div className={classes.root}>
             <Paper variant="outlined" square>
                 <Grid container  spacing={0} alignContent="center" alignItems="center">
-                    <Grid item xs  alignContent="center" alignItems="center">
+                    <Grid item xs>
                         <Image src="https://opgg-static.akamaized.net/images/medals/diamond_1.png" />
                     </Grid>
                     <Grid item xs={7} container direction="row">

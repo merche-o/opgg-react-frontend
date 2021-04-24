@@ -6,6 +6,7 @@ import { Box, Grid, Paper, Tab, Tabs, Typography } from "@material-ui/core";
 import Image from "material-ui-image";
 import WinRateCell from "./WinRateCell"
 import GameHistoryCell from "./GameHistoryCell"
+import PositionCell from "./PositionCell"
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -16,7 +17,9 @@ const useStyles = makeStyles((theme: Theme) =>
       display: "flex",
       justifyContent: "center",
       alignItems:"center",
-      alignContent:"center"
+      alignContent:"center",
+      height: "100%"
+
     },
     bigText: {
       fontSize: "14px",
@@ -40,6 +43,17 @@ const useStyles = makeStyles((theme: Theme) =>
     greenWR: { color: "#2daf7f" },
     redWR: { color: "#c6443e" },
     yellowWR: { color: "#e19205" },
+    gridItem:{
+      height:"100%"
+    },
+    nanumBarunGothicOTF:{
+      fontSize: "11px",
+      fontFamily: "NanumBarunGothicOTF",
+      textAlign: "center"
+  },
+  grey1Color:{color: "#555555"},
+
+
   })
 );
 
@@ -63,13 +77,13 @@ function TabPanel(props: TabPanelProps) {
     >
       {value === index && (
         <div>
-          <Grid container className={classes.cardPosition}>
-            <Grid item xs>
-          <Paper variant="outlined" square>
+          <Grid container direction="row" className={classes.cardPosition}>
+            <Grid item xs={4} className={classes.gridItem}>
+          <Paper variant="outlined" square className={classes.gridItem}>
                   <WinRateCell /> 
          </Paper>
           </Grid>
-          <Grid item xs>
+          <Grid item xs={4}  className={classes.gridItem}>
 
           <Paper variant="outlined" square>
         <GameHistoryCell/>
@@ -78,10 +92,15 @@ function TabPanel(props: TabPanelProps) {
 
           </Paper>
           </Grid>
-          <Grid item xs>
+          <Grid item xs={4}  className={classes.gridItem}>
 
-          <Paper variant="outlined" square>
-            <Typography>{children} fddsf </Typography>
+          <Paper variant="outlined" square style={{padding :"14px"}}>
+          <Grid item xs={12} className={classes.nanumBarunGothicOTF + " " + classes.smallText + " " +classes.grey1Color}>
+                                Preferred Position (Rank)
+                     </Grid>
+        <PositionCell />
+        <PositionCell />
+
           </Paper>
           </Grid>
           </Grid>
@@ -107,7 +126,7 @@ export default function GameSummaryTab() {
       <Paper variant="outlined" square>
         <Grid container spacing={0} alignContent="center" alignItems="center">
           <Grid item xs={12}>
-            <Tabs value={tabIndex} onChange={handleChange}>
+            <Tabs value={tabIndex} onChange={handleChange} indicatorColor="secondary" >
               <Tab label="Total" />
               <Tab label="Ranked Solo" />
               <Tab label="Ranked Flex" />

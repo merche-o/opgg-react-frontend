@@ -1,9 +1,7 @@
 import React from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import { Box, Grid, Paper } from '@material-ui/core';
-import Image from 'material-ui-image'
-import { Portrait } from 'material-ui-icons';
+import { Avatar, Box, Grid, Paper } from '@material-ui/core';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -64,6 +62,9 @@ const useStyles = makeStyles((theme: Theme) =>
     smallText :{
         fontSize : "12px"
     },
+    gridItem:{
+        height:"100%"
+      }
 
 
   })
@@ -74,18 +75,16 @@ export default function GameHistoryCell() {
     const classes = useStyles();
     return (
         <div className={classes.root}>
-            <Paper variant="outlined" square>
                 <Grid container  spacing={0} alignContent="center" alignItems="center">
-                    <Grid item xs  alignContent="center" alignItems="center">
-                        <Portrait src="https://opgg-static.akamaized.net/images/medals/diamond_1.png" />
+                    <Grid item xs className={classes.gridItem}>
+                        <Avatar src="https://opgg-static.akamaized.net/images/medals/diamond_1.png" />
                     </Grid>
-                    <Grid item xs={7} container direction="row">
+                    <Grid item xs={7} container direction="row" className={classes.gridItem}>
                         <Grid item xs={12} className={classes.helveticaF + " " + classes.blackColor + " " + classes.textMedium}>Title</Grid>
                         <Grid item xs={12} className={classes.helveticaF + " " + classes.grey1Color}> <Box fontWeight='fontWeightBold' display='inline'>position</Box> (details)</Grid>
 
                     </Grid>
                 </Grid>
-            </Paper>
         </div>
     );
 }
