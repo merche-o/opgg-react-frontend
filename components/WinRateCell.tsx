@@ -1,6 +1,11 @@
 import React from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { Avatar, Box, Grid, Paper } from '@material-ui/core';
+import {
+  Chart,
+  PieSeries,
+  
+} from "@devexpress/dx-react-chart-material-ui";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -8,7 +13,7 @@ const useStyles = makeStyles((theme: Theme) =>
       flexGrow: 1,
     },
     gridContainer:{
-        padding:"33px",
+        padding:"15px",
         height:"100%"
     },
     firstLine: {
@@ -63,10 +68,22 @@ const useStyles = makeStyles((theme: Theme) =>
     smallText :{
         fontSize : "12px"
     },
+    heightMax:{
+      maxHeight: "75px"
+    }
 
 
   })
 );
+
+export const areas = [{
+  name: 'win',
+  area: 0.6
+}, {
+  name: 'Loss',
+  area: 0.4
+}];
+
 
 /// have to loop over taglist
 export default function WinRateCell() {
@@ -75,7 +92,12 @@ export default function WinRateCell() {
                 <Grid container spacing={0} direction="row" alignContent="center" alignItems="center" className={classes.gridContainer}>
                     <Grid item xs={6} className={classes.helveticaF + " " + classes.smallText + " " + classes.grey1Color}>
                     win data
-                    <Box alignContent="center">    <Avatar  src="https://opgg-static.akamaized.net/images/medals/diamond_1.png" /> </Box>
+                   
+                   
+                    <Box alignContent="center" >    
+                     <Chart data={areas} className={classes.heightMax}>
+                    <PieSeries  valueField="area" argumentField="name" innerRadius={0.6}/>
+                    </Chart> </Box>
                     </Grid>
                     <Grid item xs={6} container direction="row">
                         <Grid item xs={12} className={classes.helveticaF + " " + classes.textBold + " " + classes.blackColor}>Title</Grid>

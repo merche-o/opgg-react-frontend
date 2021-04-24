@@ -21,7 +21,10 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         greenWR:{ color:"#2daf7f"},
         redWR:{ color:"#c6443e"},
-        yellowWR:{ color:"#e19205"}
+        yellowWR:{ color:"#e19205"},
+        containerPadding:{
+            padding:"15px"
+        }
 
     }));
 
@@ -31,7 +34,7 @@ export default function ChampionStatCell() {
     return (
         <div className={classes.root}>
             <Paper variant="outlined" square>
-                <Grid container  spacing={0} alignContent="center" alignItems="center">
+                <Grid container  spacing={0} alignContent="center" alignItems="center" className={classes.containerPadding}>
                     <Grid item xs>
                         <Avatar  src="https://opgg-static.akamaized.net/images/medals/diamond_1.png" />
                     </Grid>
