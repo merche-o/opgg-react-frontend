@@ -8,12 +8,17 @@ import RankCard from './components/RankCard'
 import GameSummaryTab from './components/GameSummaryTab'
 import ChampionStatTab from './components/ChampionStatTab'
 import HistoryCard from './components/HistoryCard'
+import { Provider } from 'react-redux';
+import store from './redux/store'
+
 export default function App() {
   const [input, setInput] = useState('');
   const classes = useStyles();
 
 
   return (
+    <Provider store={store}>
+
     <View >
       <SearchAppBar
       />
@@ -39,6 +44,7 @@ export default function App() {
         </Container>
       </div>
     </View>
+    </Provider>
   );
 }
 
