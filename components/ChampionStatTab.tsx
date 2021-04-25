@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { Dispatch, useEffect, useState } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import { Box, Grid, Paper,  Tab, Tabs, Typography } from '@material-ui/core';
@@ -6,6 +6,11 @@ import ChampionStatCell from "./ChampionStatCell"
 import RankWinStatCell from "./RankWinStatCell"
 
 import Image from 'material-ui-image'
+import { GlobalState } from '../redux/type/global';
+import { useDispatch, useSelector } from 'react-redux';
+import { IChampionUsage } from '../redux/type/championUsage';
+import { ISummonerSummary } from '../redux/type/summonerSummary';
+import { getChampionUsage } from '../redux/actionChampionUsage';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -48,6 +53,20 @@ const useStyles = makeStyles((theme: Theme) =>
       
       function TabPanel(props: TabPanelProps) {
         const { children, value, index, ...other } = props;
+        const dispatch: Dispatch<any> = useDispatch();
+
+        const sumSummaery: ISummonerSummary | undefined = useSelector(
+          (state: GlobalState) => state.summonerSummatry.summoner
+        );
+        const championUsage : IChampionUsage | undefined = useSelector(
+          (state: GlobalState) => state.championUsage.championUsage
+        )
+    
+        useEffect(() => {
+
+   
+        }, []);
+
         return (
           <div
             role="tabpanel"
@@ -57,10 +76,10 @@ const useStyles = makeStyles((theme: Theme) =>
             {...other}
           >
             {value === index && value === 0 as typeof value && (
-                <ChampionStatCell />
+                <ChampionStatCell champData={championUsage?.champions} />
             )}
              {value === index && value === 1 as typeof value && (
-                <RankWinStatCell />
+                <RankWinStatCell  rankData={championUsage?.recentWinRate}/>
             )}
           </div>
         );
@@ -71,7 +90,7 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function ChampionStatTab() {
     const classes = useStyles();
     const [tabIndex, setTabIndex] = useState<Number>(0);
-
+ 
     
     const  handleChange =(e: React.ChangeEvent<{}>, value: any)=> {
       console.log("change !")
@@ -114,3 +133,7 @@ Champion Win Ratio
 
     );
 }
+function dispatch(arg0: any) {
+  throw new Error('Function not implemented.');
+}
+

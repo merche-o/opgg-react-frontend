@@ -41,7 +41,7 @@ export default function TagList(props : TagListProps) {
 
                 {previousTiers?.map((value, index) => {
 
-                   return  <Button className={classes.button} variant="outlined"> <p className={classes.category}> S{value.season}</p>  {value.tierDivision}</Button>
+                   return  <Button key={index} className={classes.button} variant="outlined"> <p className={classes.category}> S{value.season}</p>  {value.tierDivision}</Button>
                 })}
                 
           </div>

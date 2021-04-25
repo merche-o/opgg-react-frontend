@@ -1,6 +1,8 @@
 import React from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { Avatar, Box, Grid, Paper } from '@material-ui/core';
+import { Champion } from '../redux/type/championUsage';
+import { KDAFormula, percentagePar } from '../tools/calctool';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -28,30 +30,40 @@ const useStyles = makeStyles((theme: Theme) =>
 
     }));
 
+    interface ChampionStatCellProps {
+        champData?: Champion[]
+      }
+
+ 
+
 /// have to loop over taglist
-export default function ChampionStatCell() {
+export default function ChampionStatCell(props: ChampionStatCellProps) {
     const classes = useStyles();
+    const { champData } = props;
+
     return (
         <div className={classes.root}>
-            <Paper variant="outlined" square>
+            {champData?.map((value, index) => {
+          return (<Paper variant="outlined" square key={index} >
                 <Grid container  spacing={0} alignContent="center" alignItems="center" className={classes.containerPadding}>
                     <Grid item xs>
-                        <Avatar  src="https://opgg-static.akamaized.net/images/medals/diamond_1.png" />
+                        <Avatar  src={value.imageUrl} />
                     </Grid>
                     <Grid item xs={3} container direction="row">
-                        <Grid item xs={12} className={classes.firstLine}>Title</Grid>
-                        <Grid item xs={12} className={classes.secondLine}> position</Grid>
+                        <Grid item xs={12} className={classes.firstLine}>{value.name}</Grid>
+                        <Grid item xs={12} className={classes.secondLine}> CS {value.cs}</Grid>
                     </Grid>
                     <Grid item xs={3} container direction="row">
-                    <Grid item xs={12} className={classes.firstLine}>Title</Grid>
-                        <Grid item xs={12} className={classes.secondLine}> position</Grid>
+                    <Grid item xs={12} className={classes.firstLine}>{KDAFormula(value.kills, value.assists, value.deaths, value.games)}:1 KDA</Grid>
+                        <Grid item xs={12} className={classes.secondLine}> {Math.round(value.kills / value.games)} / {Math.round(value.deaths/ value.games)} / {Math.round(value.assists / value.games)}</Grid>
                     </Grid>
                     <Grid item xs={3} container direction="row">
-                    <Grid item xs={12} className={classes.firstLine}>Title</Grid>
-                        <Grid item xs={12} className={classes.secondLine}> position </Grid>
+                    <Grid item xs={12} className={classes.firstLine}>{percentagePar(value.wins,value.games)}%</Grid>
+                        <Grid item xs={12} className={classes.secondLine}> {value.games} Played </Grid>
                     </Grid>
                 </Grid>
-            </Paper>
+            </Paper>)
+        })}
         </div>
     );
 }

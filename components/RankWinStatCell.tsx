@@ -1,6 +1,8 @@
 import React from 'react';
 import { createStyles, makeStyles, Theme, withStyles } from '@material-ui/core/styles';
 import { Avatar, Box, Grid, LinearProgress, Paper } from '@material-ui/core';
+import { RecentWinRate } from '../redux/type/championUsage';
+import { percentagePar } from '../tools/calctool';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -43,30 +45,41 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 )(LinearProgress);
 
+interface RankWinStatCellProps {
+    rankData?: RecentWinRate[]
+  }
+
 /// have to loop over taglist
-export default function RankWinStatCell() {
+export default function RankWinStatCell(props: RankWinStatCellProps) {
     const classes = useStyles();
+    const { rankData } = props;
+
     return (
         <div className={classes.root}>
-            <Paper variant="outlined" square>
+                        {rankData?.map((value, index) => {
+
+            return (<Paper variant="outlined" key={index} square>
                 <Grid container  spacing={1} alignContent="center" alignItems="center" className={classes.containerPadding}>
                     <Grid item xs>
-                        <Avatar  src="https://opgg-static.akamaized.net/images/medals/diamond_1.png" />
+                        <Avatar  src={value.imageUrl} />
                     </Grid>
                     <Grid item xs={3} container direction="row">
-                        <Grid item xs={12} className={classes.firstLine}>Title</Grid>
+                        <Grid item xs={12} className={classes.firstLine}>{value.name}</Grid>
                     </Grid>
                     <Grid item xs={3} container direction="row">
-                        <Grid item xs={12} className={classes.secondLine}> position</Grid>
+                        <Grid item xs={12} className={classes.secondLine}> {percentagePar(value.wins, value.wins + value.losses)}%</Grid>
                     </Grid>
                     <Grid item xs={3} container direction="row">
                     <Grid item xs={12} className={classes.firstLine}>
-                     <BorderLinearProgress variant="determinate" value={25} />
+                     <BorderLinearProgress variant="determinate" value={percentagePar(value.wins, value.wins + value.losses)} />
                     </Grid>
                        
                     </Grid>
                 </Grid>
-            </Paper>
+            </Paper> )
+            }
+            )
+            }
         </div>
     );
 }

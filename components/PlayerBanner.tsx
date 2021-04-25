@@ -1,4 +1,4 @@
-import React, { Dispatch, useEffect } from 'react';
+import React, { Dispatch } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { Box, Grid, Typography } from '@material-ui/core';
 import Image from 'material-ui-image'
@@ -58,14 +58,12 @@ const useStyles = makeStyles((theme: Theme) =>
         }
     }));
 
-    interface PlayerBannerProps {
-        sumSummaery?:ISummonerSummary;
-      }
-
-export default function PlayerBanner(props :PlayerBannerProps) {
+export default function PlayerBanner() {
     const classes = useStyles();
-    const { sumSummaery } = props;
-
+  
+    const sumSummaery: ISummonerSummary | undefined = useSelector(
+        (state: GlobalState) => state.summonerSummatry.summoner
+      );
   
     return (
         <div >

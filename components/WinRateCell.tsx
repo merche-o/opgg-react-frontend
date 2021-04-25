@@ -95,7 +95,7 @@ export default function WinRateCell() {
                    
                    
                     <Box alignContent="center" >    
-                     <Chart data={areas} className={classes.heightMax}>
+                     <Chart data={areas} className={classes.heightMax} >
                     <PieSeries  valueField="area" argumentField="name" innerRadius={0.6}/>
                     </Chart> </Box>
                     </Grid>

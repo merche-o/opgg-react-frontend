@@ -1,4 +1,5 @@
 import * as actionTypes from "./actionTypes"
+import { SummonerSummaryAction, SummonerSummaryState } from "./type/summonerSummary"
 
 const initialSummonerSummaryState: SummonerSummaryState = {
     summoner :undefined
