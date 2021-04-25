@@ -6,3 +6,7 @@ export const GET_CHAMPION_USAGE = "GET_CHAMPION_USAGE"
 
 // GAME DATA 
 export const GET_GAME_DATA = "GET_GAME_DATA"
+
+//SEARCH
+
+export const LAUNCH_SEARCH = "LAUNCH_SEARCH"

@@ -50,20 +50,20 @@ export default function Global() {
       const sumSummaery: ISummonerSummary | undefined = useSelector(
           (state: GlobalState) => state.summonerSummatry.summoner
         );
-        const championUsage: IChampionUsage | undefined = useSelector(
-          (state: GlobalState) => state.championUsage.championUsage as IChampionUsage
+        const searchData: string = useSelector(
+          (state: GlobalState) => state.searchData.search.currentValue
         );
         
      
   
         useEffect(() => {
-          dispatch(getSumonerSummary("{summonerName}"));
-          dispatch(getChampionUsage("{summonerName}"));
+          dispatch(getSumonerSummary(searchData));
+          dispatch(getChampionUsage(searchData));
 
-          dispatch(getGameData("{summonerName}"))
+          dispatch(getGameData(searchData))
 
 
-        }, []);
+        }, [searchData]);
   
     return (
         <View >

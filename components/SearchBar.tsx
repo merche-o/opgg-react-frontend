@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { Dispatch, useState } from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import InputBase from '@material-ui/core/InputBase';
 import { createStyles, fade, Theme, makeStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
+import { launchSearch } from '../redux/actionSearch';
+import { useDispatch } from 'react-redux';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -69,7 +71,9 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function SearchAppBar() {
   const classes = useStyles();
 
- 
+  const [searchStr, setSearchStr] = useState<string>("");
+
+  const dispatch: Dispatch<any> = useDispatch();
 
   return (
     <div className={classes.root}>
@@ -88,12 +92,19 @@ export default function SearchAppBar() {
               }}
               inputProps={{ 'aria-label': 'search' }}
               endAdornment={ <div className={classes.searchIcon}
-          //    onKeyPress={onKeyDown()}
-            //  onChange={onChange()}
+            
               >
               .GG
             </div>}
+            value={searchStr}
+            onChange={(text) => setSearchStr(text.target.value)}
+            onKeyPress={(event) => {
 
+              if (event.key== 'Enter') {
+                dispatch(launchSearch(searchStr))
+              }
+                  
+          }}
             />
                        
           </div>

@@ -6,5 +6,6 @@ import {SummonerSummaryState} from "./summonerSummary"
 export type GlobalState = {
     summonerSummatry : SummonerSummaryState,
     championUsage : ChampionUsageState,
-    gameData : GameDataState
+    gameData : GameDataState,
+    searchData: SearchState
 }
