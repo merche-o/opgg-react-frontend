@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { Dispatch, useEffect } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { Box, Grid, Typography } from '@material-ui/core';
 import Image from 'material-ui-image'
+import { GlobalState } from '../redux/type/global';
+import { getSumonerSummary } from '../redux/actionSummonerSummary';
+import { useDispatch, useSelector } from 'react-redux';
+import { ISummonerSummary } from '../redux/type/summonerSummary';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -35,7 +39,7 @@ const useStyles = makeStyles((theme: Theme) =>
             position: 'absolute',
         },
         image: {
-            backgroundImage: "url(https://opgg-static.akamaized.net/images/profile_icons/profileIcon1625.jpg)",
+          //  backgroundImage: "url(https://opgg-static.akamaized.net/images/profile_icons/profileIcon1625.jpg)",
             backgroundPosition: "center", /* Center the image */
             backgroundRepeat: "no-repeat", /* Do not repeat the image */
             backgroundSize: "85%" /* Resize the background image to cover the entire container */
@@ -54,8 +58,15 @@ const useStyles = makeStyles((theme: Theme) =>
         }
     }));
 
-export default function PlayerBanner() {
+    interface PlayerBannerProps {
+        sumSummaery?:ISummonerSummary;
+      }
+
+export default function PlayerBanner(props :PlayerBannerProps) {
     const classes = useStyles();
+    const { sumSummaery } = props;
+
+  
     return (
         <div >
 
@@ -63,19 +74,19 @@ export default function PlayerBanner() {
                 <Grid item xs={1} >
                     <Grid container item  xs={12} className={classes.portrait} >
 
-                        <img className={classes.image} src="https://opgg-static.akamaized.net/images/borders2/challenger.png" />
+                        <img className={classes.image} style={{backgroundImage: "url(" + sumSummaery?.summoner.profileImageUrl +")"}} src={ ""+ sumSummaery?.summoner.profileBorderImageUrl + ""} />
                         <Grid item xs={12} className={classes.badge}>
                             <img src={require('../assets/bglevelbox.png')} />
 
-                            <Typography className={classes.level} >68</Typography>
+                            <Typography className={classes.level} >{sumSummaery?.summoner.level}</Typography>
                         </Grid>
                     </Grid>
                 </Grid>
                 <Grid container direction="column"  spacing={3} item xs={11} >
-                    <Grid item xs={1}  className={classes.name}>Name
+                    <Grid item xs={1}  className={classes.name}>{sumSummaery?.summoner.name}
                     </Grid>
                     <Grid item xs={8} >
-                        <Typography className={classes.desc} component='div'>Normal text <Box fontWeight='fontWeightBold' display='inline'>medium font weight text</Box> and some more normal text</Typography>
+                        <Typography className={classes.desc} component='div'>Ladder Rank <Box fontWeight='fontWeightBold' display='inline'>{sumSummaery?.summoner.ladderRank.rank}</Box> ({sumSummaery?.summoner.ladderRank.rankPercentOfTop}% of top)</Typography>
                     </Grid>
 
                 </Grid>

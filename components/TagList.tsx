@@ -1,6 +1,7 @@
 import React from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import { PreviousTier } from '../redux/type/summonerSummary';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
@@ -16,7 +17,8 @@ border: 'solid 1px #d0d3d4',
     fontSize: "11px",
     color: "#657070",
     letterSpacing: "-0.42px",
-    padding : "5px"
+    padding : "5px",
+    margin:"5px"
     },
     category:{
         fontWeight: "bold",
@@ -25,12 +27,23 @@ border: 'solid 1px #d0d3d4',
     }
   }));
 
+  interface TagListProps {
+    previousTiers?:[PreviousTier]
+  }
+
   /// have to loop over taglist
-export default function TagList() {
+export default function TagList(props : TagListProps) {
     const classes = useStyles();
+    const { previousTiers } = props;
+
     return (
         <div className={classes.root}>
-      <Button className={classes.button} variant="outlined"> <p className={classes.category}> S3</p>  Default</Button>
-        </div>
+
+                {previousTiers?.map((value, index) => {
+
+                   return  <Button className={classes.button} variant="outlined"> <p className={classes.category}> S{value.season}</p>  {value.tierDivision}</Button>
+                })}
+                
+          </div>
         );
 }
