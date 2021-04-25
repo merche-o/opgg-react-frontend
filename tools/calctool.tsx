@@ -6,3 +6,4 @@ export function KDAFormula(kills:number, assists:number, deaths:number, games:nu
 {
     return Math.round( ((kills/games) + (assists/games) / (deaths /games) ))
 }
+

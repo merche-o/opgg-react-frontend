@@ -2,6 +2,10 @@ import React from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import { Avatar, Box, Grid, Paper } from '@material-ui/core';
+import { useSelector } from 'react-redux';
+import { GlobalState } from '../redux/type/global';
+import { IGameData } from '../redux/type/gameData';
+import { KDAFormula, percentagePar } from '../tools/calctool';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -73,18 +77,26 @@ const useStyles = makeStyles((theme: Theme) =>
 /// have to loop over taglist
 export default function GameHistoryCell() {
     const classes = useStyles();
+
+    const matches: IGameData | undefined = useSelector(
+      (state: GlobalState) => state.gameData.gameData
+    );
     return (
         <div className={classes.root}>
-                <Grid container  spacing={0} alignContent="center" alignItems="center">
+
+    {matches?.champions?.map((value, index) => {
+      return (
+                <Grid container  spacing={0} alignContent="center" alignItems="center" >
                     <Grid item xs className={classes.gridItem}>
-                        <Avatar src="https://opgg-static.akamaized.net/images/medals/diamond_1.png" />
+                        <Avatar src={value.imageUrl} />
                     </Grid>
                     <Grid item xs={7} container direction="row" className={classes.gridItem}>
-                        <Grid item xs={12} className={classes.helveticaF + " " + classes.blackColor + " " + classes.textMedium}>Title</Grid>
-                        <Grid item xs={12} className={classes.helveticaF + " " + classes.grey1Color}> <Box fontWeight='fontWeightBold' display='inline'>position</Box> (details)</Grid>
+                        <Grid item xs={12} className={classes.helveticaF + " " + classes.blackColor + " " + classes.textMedium}>{value.name}</Grid>
+                        <Grid item xs={12} className={classes.helveticaF + " " + classes.grey1Color}> <Box fontWeight='fontWeightBold' display='inline'>{percentagePar(value.wins, value.games)}%</Box> ({value.wins}W {value.losses}L) | {KDAFormula(value.kills,value.assists,value.deaths,value.games)} KDA</Grid>
 
                     </Grid>
                 </Grid>
+      )})}
         </div>
     );
 }

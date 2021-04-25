@@ -69,6 +69,8 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function SearchAppBar() {
   const classes = useStyles();
 
+ 
+
   return (
     <div className={classes.root}>
       <AppBar position="static" className={classes.appBar} >
@@ -85,7 +87,10 @@ export default function SearchAppBar() {
                 input: classes.inputInput,
               }}
               inputProps={{ 'aria-label': 'search' }}
-              endAdornment={ <div className={classes.searchIcon}>
+              endAdornment={ <div className={classes.searchIcon}
+          //    onKeyPress={onKeyDown()}
+            //  onChange={onChange()}
+              >
               .GG
             </div>}
 

@@ -73,83 +73,6 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const tileData2 = [
-  {
-    img:
-      "https://opgg-static.akamaized.net/images/lol/item/1001.png?image=q_auto:best&v=1618413338",
-    title: "Image",
-    author: "author",
-  },
-  {
-    img:
-      "https://opgg-static.akamaized.net/images/lol/item/1001.png?image=q_auto:best&v=1618413338",
-    title: "Image",
-    author: "author",
-  },
-  {
-    img:
-      "https://opgg-static.akamaized.net/images/lol/item/1001.png?image=q_auto:best&v=1618413338",
-    title: "Image",
-    author: "author",
-  },
-  {
-    img:
-      "https://opgg-static.akamaized.net/images/lol/item/1001.png?image=q_auto:best&v=1618413338",
-    title: "Image",
-    author: "author",
-  },
-];
-
-const tileData = [
-  {
-    img:
-      "https://opgg-static.akamaized.net/images/lol/item/1001.png?image=q_auto:best&v=1618413338",
-    title: "Image",
-    author: "author",
-  },
-  {
-    img:
-      "https://opgg-static.akamaized.net/images/lol/item/1001.png?image=q_auto:best&v=1618413338",
-    title: "Image",
-    author: "author",
-  },
-  {
-    img:
-      "https://opgg-static.akamaized.net/images/lol/item/1001.png?image=q_auto:best&v=1618413338",
-    title: "Image",
-    author: "author",
-  },
-  {
-    img:
-      "https://opgg-static.akamaized.net/images/lol/item/1001.png?image=q_auto:best&v=1618413338",
-    title: "Image",
-    author: "author",
-  },
-  {
-    img:
-      "https://opgg-static.akamaized.net/images/lol/item/1001.png?image=q_auto:best&v=1618413338",
-    title: "Image",
-    author: "author",
-  },
-  {
-    img:
-      "https://opgg-static.akamaized.net/images/lol/item/1001.png?image=q_auto:best&v=1618413338",
-    title: "Image",
-    author: "author",
-  },
-  {
-    img:
-      "https://opgg-static.akamaized.net/images/lol/item/1001.png?image=q_auto:best&v=1618413338",
-    title: "Image",
-    author: "author",
-  },
-  {
-    img:
-      "https://opgg-static.akamaized.net/images/lol/item/1001.png?image=q_auto:best&v=1618413338",
-    title: "Image",
-    author: "author",
-  },
-];
 
 /// have to loop over taglist
 export default function ChampionStatCell() {
@@ -369,10 +292,10 @@ export default function ChampionStatCell() {
               </Grid>
               <Grid item xs container direction="row" spacing={1}>
                 <Grid item xs={12} className={classes.firstLine}>
-                  Title
+                  player list
                 </Grid>
                 <Grid item xs={12} className={classes.secondLine}>
-                  position
+                player list
                 </Grid>
               </Grid>
             </Grid>

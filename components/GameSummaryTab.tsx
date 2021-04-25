@@ -87,8 +87,6 @@ function TabPanel(props: TabPanelProps) {
 
           <Paper variant="outlined" square>
         <GameHistoryCell/>
-        <GameHistoryCell/>
-        <GameHistoryCell/>
 
           </Paper>
           </Grid>
@@ -98,7 +96,6 @@ function TabPanel(props: TabPanelProps) {
           <Grid item xs={12} className={classes.nanumBarunGothicOTF + " " + classes.smallText + " " +classes.grey1Color}>
                                 Preferred Position (Rank)
                      </Grid>
-        <PositionCell />
         <PositionCell />
 
           </Paper>

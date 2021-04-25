@@ -6,6 +6,10 @@ import {
   PieSeries,
   
 } from "@devexpress/dx-react-chart-material-ui";
+import { GlobalState } from '../redux/type/global';
+import { useSelector } from 'react-redux';
+import { IGameData } from '../redux/type/gameData';
+import { KDAFormula, percentagePar } from '../tools/calctool';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -76,33 +80,38 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export const areas = [{
-  name: 'win',
-  area: 0.6
-}, {
-  name: 'Loss',
-  area: 0.4
-}];
+
 
 
 /// have to loop over taglist
 export default function WinRateCell() {
     const classes = useStyles();
+    const matches: IGameData | undefined = useSelector(
+      (state: GlobalState) => state.gameData.gameData
+    );
+
+    const areas = [{
+      name: 'win',
+      area: matches?.summary.wins
+    }, {
+      name: 'Loss',
+      area: matches?.summary.losses
+    }];
+    
     return (
                 <Grid container spacing={0} direction="row" alignContent="center" alignItems="center" className={classes.gridContainer}>
                     <Grid item xs={6} className={classes.helveticaF + " " + classes.smallText + " " + classes.grey1Color}>
-                    win data
-                   
-                   
+                    {matches?.games.length}G {matches?.summary.wins}W {matches?.summary.losses}L
                     <Box alignContent="center" >    
                      <Chart data={areas} className={classes.heightMax} >
                     <PieSeries  valueField="area" argumentField="name" innerRadius={0.6}/>
                     </Chart> </Box>
                     </Grid>
                     <Grid item xs={6} container direction="row">
-                        <Grid item xs={12} className={classes.helveticaF + " " + classes.textBold + " " + classes.blackColor}>Title</Grid>
-                        <Grid item xs={12} className={classes.helveticaF + " " + classes.textBold + " " + classes.textBig}> position</Grid>
+                        <Grid item xs={12} className={classes.helveticaF + " " + classes.textBold + " " + classes.blackColor}> {Math.round((matches?.summary.kills ?? 0) / (matches?.games.length ?? 1))}/ {Math.round((matches?.summary.deaths ?? 0) / (matches?.games.length ?? 1))} / {Math.round((matches?.summary.assists ?? 0) / (matches?.games.length ?? 1))}</Grid>
+                        <Grid item xs={12} className={classes.helveticaF + " " + classes.textBold + " " + classes.textBig}> {KDAFormula(matches?.summary.kills ?? 0,matches?.summary.assists ?? 0,matches?.summary.deaths ?? 0,matches?.games.length ?? 0)}:1</Grid>
                     </Grid>
                 </Grid>
     );
 }
+
