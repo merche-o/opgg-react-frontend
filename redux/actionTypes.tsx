@@ -10,3 +10,7 @@ export const GET_GAME_DATA = "GET_GAME_DATA"
 //SEARCH
 
 export const LAUNCH_SEARCH = "LAUNCH_SEARCH"
+
+//TEAM
+
+export const GET_TEAM_DATA = "GET_TEAM_DATA"

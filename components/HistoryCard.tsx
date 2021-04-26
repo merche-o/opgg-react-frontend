@@ -15,6 +15,7 @@ import { IGameData } from "../redux/type/gameData";
 import { useSelector } from "react-redux";
 import { GlobalState } from "../redux/type/global";
 import Moment from 'react-moment';
+import TeamDisplayCell from "./TeamDisplayCell";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -246,12 +247,7 @@ export default function ChampionStatCell() {
                 </Grid>
               </Grid>
               <Grid item xs container direction="row" spacing={1}>
-                <Grid item xs={12} className={classes.firstLine}>
-                  player list
-                </Grid>
-                <Grid item xs={12} className={classes.secondLine}>
-                  player list
-                </Grid>
+               <TeamDisplayCell gameId={value.gameId}/>
               </Grid>
             </Grid>
           </Paper>
