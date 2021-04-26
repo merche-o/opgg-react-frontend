@@ -32,4 +32,3 @@
     }
 
 
-    type DispachTeamsData = (args: TeamsDataAction) => TeamsDataAction

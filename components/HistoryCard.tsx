@@ -81,14 +81,16 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
+interface ChampionStatCellProps {
+  matches?: IGameData
+}
 
 /// have to loop over taglist
-export default function ChampionStatCell() {
+export default function ChampionStatCell(props: ChampionStatCellProps) {
   const classes = useStyles();
+  const { matches } = props;
 
-  const matches: IGameData | undefined = useSelector(
-    (state: GlobalState) => state.gameData.gameData
-  );
+
   return (
 
     <div className={classes.root}>
@@ -247,7 +249,7 @@ export default function ChampionStatCell() {
                 </Grid>
               </Grid>
               <Grid item xs container direction="row" spacing={1}>
-               <TeamDisplayCell gameId={value.gameId}/>
+               <TeamDisplayCell gameId={value.gameId} userName={value.summonerName} key={value.gameId}/>
               </Grid>
             </Grid>
           </Paper>

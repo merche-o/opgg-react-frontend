@@ -1,11 +1,8 @@
-import React, { Dispatch, useEffect } from 'react';
+import React, { Dispatch, useEffect, useState } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { Box, Grid, Typography } from '@material-ui/core';
-import { ISummonerSummary } from '../redux/type/summonerSummary';
-import { GlobalState } from '../redux/type/global';
-import { useDispatch, useSelector } from 'react-redux';
 import { ITeamsData } from '../redux/type/teams';
-import { getTeamData } from '../redux/actionTeamData';
+import { BASE_URL } from '../tools/env';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -22,85 +19,79 @@ const useStyles = makeStyles((theme: Theme) =>
             letterSpacing: "-0.42px",
             color: "#555555",
         },
-        desc: {
-            fontFamily: " Helvetica",
-            fontSize: "11px",
-            color: "#657070",
-        },
-        textGrid: {
-            height: "100%"
-        },
-        badge: {
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            zIndex: 100,
-            position: 'absolute',
-        },
-        image: {
-            //  backgroundImage: "url(https://opgg-static.akamaized.net/images/profile_icons/profileIcon1625.jpg)",
-            backgroundPosition: "center", /* Center the image */
-            backgroundRepeat: "no-repeat", /* Do not repeat the image */
-            backgroundSize: "85%" /* Resize the background image to cover the entire container */
-        },
-        level: {
-            zIndex: 100,
-            position: 'absolute',
-            color: "#eabd56"
-            //  marginTop: "-14px",
-            //  backgroundImage: "url('../assets/bglevelbox.png')",
-        },
-        portrait: {
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "flex-end",
-        }
+        gridTileStyle: {
+            position: "relative",
+            float: "left",
+            width: "100%",
+            maxHeight: "16px",
+            maxWidth: "16px",
+            minHeight: "16px",
+            minWidth: "16px",
+            overflow: "hidden",
+            // height: '100% !important'
+          },
     }));
 
-interface GameHistoryCellProps {
-    gameId: string
+interface TeamDisplayellProps {
+    gameId: string,
+    userName:string
 }
 
-export default function TeamDisplayCell(props: GameHistoryCellProps) {
+export default function TeamDisplayCell(props: TeamDisplayellProps) {
     const classes = useStyles();
-    const { gameId } = props;
-    const dispatch: Dispatch<any> = useDispatch();
+    const { gameId, userName } = props;
 
 
-    const sumSummaery: ISummonerSummary | undefined = useSelector(
-        (state: GlobalState) => state.summonerSummatry.summoner
-    );
-
-    var teamData: ITeamsData
+    const [teamData, setTeamData] = useState<ITeamsData>({
+        gameId:gameId,
+        teams: []
+    });
+ 
     useEffect(() => {
-      /*  fetch(BASE_URL + sumSummaery?.summoner.name + "/matchDetail/"+gameId+"?hl=en", {
+        fetch(BASE_URL + userName + "/matchDetail/"+gameId+"?hl=en", {
             "method": "GET",
           })
             .then(response => response.json())
             .then(response => {
-               
-            teamData = response as ITeamsData
-      
+               if (0 === teamData.teams.length) {
+                 setTeamData(response as ITeamsData)
+               }
             })
             .catch(err => {
               console.log(err);
-            });    */},
+            }); [teamData.teams]   },
             );
 
     return (
         <div >
-                                            {console.log(gameId)}
 
             <Grid container direction="row" spacing={1}>
                   
-              <Grid item  container xs={6} className={classes.name}>
-                        player list
+                    { 
+                     
+                    teamData?.teams.map ((team, index) => { 
+                    return (   <Grid container direction='row' item xs={6} className={classes.name} key={team.teamId} >
+
+                    {team.players.map((value, index) => { 
+                        return (
+                            <Grid container key={index}>
+                            <Grid item xs={1} className={classes.gridTileStyle}>
+                            <img src={value.champion.imageUrl} />
+                            </Grid>
+                            <Grid item xs={1} >
+                            <Typography noWrap key={value.summonerId}>{value.summonerName}</Typography>
+                            </Grid>
+                            </Grid>
+                        )
+                        })}
+                            </Grid>)})
+                }
+            
+
+  
 
               
-                                </Grid>
-                <Grid item xs={6} className={classes.name}>
-                  player list
-                </Grid>
+         
                     
             </Grid>
 

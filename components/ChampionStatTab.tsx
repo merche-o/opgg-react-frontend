@@ -49,19 +49,12 @@ interface TabPanelProps {
 
 function TabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props;
-  const dispatch: Dispatch<any> = useDispatch();
 
-  const sumSummaery: ISummonerSummary | undefined = useSelector(
-    (state: GlobalState) => state.summonerSummatry.summoner
-  );
   const championUsage: IChampionUsage | undefined = useSelector(
     (state: GlobalState) => state.championUsage.championUsage
   )
 
-  useEffect(() => {
 
-
-  }, []);
 
   return (
     <div
@@ -126,7 +119,5 @@ export default function ChampionStatTab() {
 
   );
 }
-function dispatch(arg0: any) {
-  throw new Error('Function not implemented.');
-}
+
 

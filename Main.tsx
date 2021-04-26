@@ -14,6 +14,7 @@ import { GlobalState } from './redux/type/global';
 import { getSumonerSummary } from './redux/actionSummonerSummary';
 import { getGameData } from './redux/actionGameData';
 import { getChampionUsage } from './redux/actionChampionUsage';
+import { IGameData } from './redux/type/gameData';
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -51,6 +52,9 @@ export default function Main() {
   const searchData: string = useSelector(
     (state: GlobalState) => state.searchData.search.currentValue
   );
+  const matches: IGameData | undefined = useSelector(
+    (state: GlobalState) => state.gameData.gameData
+  );
 
 
 
@@ -82,7 +86,7 @@ export default function Main() {
             <Grid item xs={12} sm={8}>
               <Grid item container direction="row" spacing={3} xs={12}>
                 <Grid item xs={12}> <GameSummaryTab /></Grid>
-                <Grid item xs={12}> <HistoryCard /></Grid>
+                <Grid item xs={12}> <HistoryCard matches={matches}/></Grid>
               </Grid>
             </Grid>
           </Grid>

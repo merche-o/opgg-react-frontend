@@ -8,6 +8,5 @@ export type GlobalState = {
     summonerSummatry: SummonerSummaryState,
     championUsage: ChampionUsageState,
     gameData: GameDataState,
-    searchData: SearchState,
-    teamsData: TeamsDataState
+    searchData: SearchState
 }
