@@ -30,8 +30,8 @@ I don't know if it was on purpose but some data were missing in the API
 
 ### File structure
 
-- Main.tsx : The app start point with this global structure
-- Components/ : You can find in this folder all the UI componnent I used for this app
-- redux/ : you can find here my redux reducer, action and my global store
+- Main.tsx : The app start point with its global structure
+- Components/ : You can find in this folder all the UI componnent I made for this app
+- redux/ : you can find here my redux reducers, actios and my global store
 - redux/type.tsx : All my data model
 - tools/: you can find all the function helpers and my env configuration
