@@ -15,8 +15,6 @@ import { IGameData } from "../redux/type/gameData";
 import { useSelector } from "react-redux";
 import { GlobalState } from "../redux/type/global";
 import Moment from 'react-moment';
-import moment from 'moment';
-import { KDAFormula } from "../tools/calctool";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -84,62 +82,19 @@ export default function ChampionStatCell() {
   return (
 
     <div className={classes.root}>
-          {
-      console.log(matches)
-    }
       {matches?.games?.map((value, index) => {
         return (
           <Paper variant="outlined" square key={index}>
-            <Grid
-              container
-              spacing={3}
-              alignContent="center"
-              alignItems="center"
-              className={classes.gridContainer}
-            >
-              <Grid
-                item
-                xs
-                container
-                direction="row"
-                alignItems="center"
-                alignContent="center"
-                spacing={1}
-              >
-                <Grid
-                  item
-                  xs={12}
-                  className={
-                    classes.appleSDGothicNeo +
-                    " " +
-                    classes.textBold +
-                    " " +
-                    classes.grey1Color
-                  }
-                >
+            <Grid container spacing={3} alignContent="center" alignItems="center" className={classes.gridContainer} >
+              <Grid item xs container direction="row" alignItems="center" alignContent="center" spacing={1} >
+                <Grid item xs={12} className={classes.appleSDGothicNeo + " " + classes.textBold + " " + classes.grey1Color}>
                   {value.gameType}
                 </Grid>
-                <Grid
-                  item
-                  xs={12}
-                  className={
-                    classes.appleSDGothicNeo + " " + classes.grey1Color
-                  }
-                >
-                
+                <Grid item xs={12} className={classes.appleSDGothicNeo + " " + classes.grey1Color}>
+
                   {<Moment fromNow ago> Date(value.createDate).toUTCString()</Moment>}
                 </Grid>
-                <Grid
-                  item
-                  xs={12}
-                  className={
-                    classes.appleSDGothicNeo +
-                    " " +
-                    classes.textBold +
-                    " " +
-                    classes.redWR
-                  }
-                >
+                <Grid item xs={12} className={classes.appleSDGothicNeo + " " + classes.textBold + " " + classes.redWR}>
                   {value.isWin === true && (
                     <Box className={classes.greenWR}>  Victory</Box>
                   )
@@ -147,22 +102,13 @@ export default function ChampionStatCell() {
                   {value.isWin === false && (
                     <Box>Defeat</Box>
                   )
-                  
                   }
                 </Grid>
-                <Grid
-                  item
-                  xs={12}
-                  className={
-                    classes.appleSDGothicNeo + "  " + classes.grey1Color
-                  }
-                >
-                 { new Date(value.gameLength * 1000).toISOString().substr(11, 8)}
+                <Grid item xs={12} className={classes.appleSDGothicNeo + "  " + classes.grey1Color}>
+                  {new Date(value.gameLength * 1000).toISOString().substr(11, 8)}
                 </Grid>
               </Grid>
-              <Grid
-                item
-                xs
+              <Grid item xs
                 container
                 direction="row"
                 alignItems="center"
@@ -211,7 +157,7 @@ export default function ChampionStatCell() {
                     classes.textBig
                   }
                 >
-                  <Typography display="inline">{value.stats.general.kill}</Typography> / <Typography  display="inline" className={classes.redWR}>{value.stats.general.death}</Typography> / <Typography  display="inline">{value.stats.general.assist}</Typography>
+                  <Typography display="inline">{value.stats.general.kill}</Typography> / <Typography display="inline" className={classes.redWR}>{value.stats.general.death}</Typography> / <Typography display="inline">{value.stats.general.assist}</Typography>
                 </Grid>
                 <Grid
                   item
@@ -220,14 +166,14 @@ export default function ChampionStatCell() {
                     classes.appleSDGothicNeo + " " + classes.grey2Color
                   }
                 >
-                 {value.stats.general.kdaString} KDA
+                  {value.stats.general.kdaString} KDA
                 </Grid>
                 <Grid item xs={12} className={classes.appleSDGothicNeo}>
-                  { value.stats.general.largestMultiKillString != "" && (
-                  <Chip size="small" label={value.stats.general.largestMultiKillString}  />
+                  {value.stats.general.largestMultiKillString != "" && (
+                    <Chip size="small" label={value.stats.general.largestMultiKillString} />
                   )}
-                     { value.stats.general.opScoreBadge != "" && (
-                  <Chip size="small" label={value.stats.general.opScoreBadge} />
+                  {value.stats.general.opScoreBadge != "" && (
+                    <Chip size="small" label={value.stats.general.opScoreBadge} />
                   )}
                 </Grid>
               </Grid>
@@ -287,7 +233,7 @@ export default function ChampionStatCell() {
                     classes.helveticaF + " " + classes.blackColor + " "
                   }
                 >
-                 controle ward {value.stats.ward.sightWardsBought + value.stats.ward.visionWardsBought }
+                  controle ward {value.stats.ward.sightWardsBought + value.stats.ward.visionWardsBought}
                 </Grid>
               </Grid>
               <Grid item xs container direction="row" spacing={1}>
@@ -295,7 +241,7 @@ export default function ChampionStatCell() {
                   player list
                 </Grid>
                 <Grid item xs={12} className={classes.secondLine}>
-                player list
+                  player list
                 </Grid>
               </Grid>
             </Grid>
