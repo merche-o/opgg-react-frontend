@@ -12,6 +12,13 @@ Once you installed expo you just need to  run `npm install` then `expo start`
 
 It will launch `expo` portal, you will just need to click on `run in web browser` and it will launch the react app.
 
+#### Step by step
+
+- `npm install --global expo-cli`
+- `npm install`
+- `expo start`
+- on the `expo` portal click on `run in web browser`
+
 ### What's left to do but i didn't have enough time :(
 
 - finalize design integration (tab design, check all responsive breakpoint, font size/color/type, doublecheck spacing/padding/size)
