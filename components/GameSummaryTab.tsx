@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
 import { Box, Grid, Paper, Tab, Tabs, Typography } from "@material-ui/core";
 
 import Image from "material-ui-image";
@@ -13,11 +12,11 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       flexGrow: 1,
     },
-    cardPosition:{
+    cardPosition: {
       display: "flex",
       justifyContent: "center",
-      alignItems:"center",
-      alignContent:"center",
+      alignItems: "center",
+      alignContent: "center",
       height: "100%"
 
     },
@@ -43,15 +42,15 @@ const useStyles = makeStyles((theme: Theme) =>
     greenWR: { color: "#2daf7f" },
     redWR: { color: "#c6443e" },
     yellowWR: { color: "#e19205" },
-    gridItem:{
-      height:"100%"
+    gridItem: {
+      height: "100%"
     },
-    nanumBarunGothicOTF:{
+    nanumBarunGothicOTF: {
       fontSize: "11px",
       fontFamily: "NanumBarunGothicOTF",
       textAlign: "center"
-  },
-  grey1Color:{color: "#555555"},
+    },
+    grey1Color: { color: "#555555" },
 
 
   })
@@ -79,27 +78,27 @@ function TabPanel(props: TabPanelProps) {
         <div>
           <Grid container direction="row" className={classes.cardPosition}>
             <Grid item xs={4} className={classes.gridItem}>
-          <Paper variant="outlined" square className={classes.gridItem}>
-                  <WinRateCell /> 
-         </Paper>
-          </Grid>
-          <Grid item xs={4}  className={classes.gridItem}>
+              <Paper variant="outlined" square className={classes.gridItem}>
+                <WinRateCell />
+              </Paper>
+            </Grid>
+            <Grid item xs={4} className={classes.gridItem}>
 
-          <Paper variant="outlined" square>
-        <GameHistoryCell/>
+              <Paper variant="outlined" square>
+                <GameHistoryCell />
 
-          </Paper>
-          </Grid>
-          <Grid item xs={4}  className={classes.gridItem}>
+              </Paper>
+            </Grid>
+            <Grid item xs={4} className={classes.gridItem}>
 
-          <Paper variant="outlined" square style={{padding :"14px"}}>
-          <Grid item xs={12} className={classes.nanumBarunGothicOTF + " " + classes.smallText + " " +classes.grey1Color}>
-                                Preferred Position (Rank)
-                     </Grid>
-        <PositionCell />
+              <Paper variant="outlined" square style={{ padding: "14px" }}>
+                <Grid item xs={12} className={classes.nanumBarunGothicOTF + " " + classes.smallText + " " + classes.grey1Color}>
+                  Preferred Position (Rank)
+                </Grid>
+                <PositionCell />
 
-          </Paper>
-          </Grid>
+              </Paper>
+            </Grid>
           </Grid>
         </div>
       )}

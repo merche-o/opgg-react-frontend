@@ -1,5 +1,5 @@
 
-import {GlobalState} from "./type/global"
+import { GlobalState } from "./type/global"
 import { createStore, applyMiddleware, combineReducers } from "redux"
 import thunk from "redux-thunk"
 import { reducerSummonerSummary } from "./summonerSummaryReducer"
@@ -12,7 +12,7 @@ const rootReducer = combineReducers<GlobalState>({
     gameData: reducerGameData,
     summonerSummatry: reducerSummonerSummary,
     championUsage: reducerChampionUsage,
-    searchData : reducerSearch
+    searchData: reducerSearch
 })
 
 const store = createStore(rootReducer, applyMiddleware(thunk))

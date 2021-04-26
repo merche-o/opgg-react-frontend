@@ -11,7 +11,6 @@ export const reducerSummonerSummary = (
   ): SummonerSummaryState => {
     switch (action.type) {
       case actionTypes.GET_SUMMONER_SUMMARY:
-      console.log("GET_SUMMONER_SUMMARY")
         return {
           ...state,
           summoner: action.data,

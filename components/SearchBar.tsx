@@ -4,7 +4,6 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import InputBase from '@material-ui/core/InputBase';
 import { createStyles, fade, Theme, makeStyles } from '@material-ui/core/styles';
-import SearchIcon from '@material-ui/icons/Search';
 import { launchSearch } from '../redux/actionSearch';
 import { useDispatch } from 'react-redux';
 
@@ -13,8 +12,8 @@ const useStyles = makeStyles((theme: Theme) =>
     root: {
       flexGrow: 1,
     },
-    appBar :{
-        backgroundColor: '#1ea1f7'
+    appBar: {
+      backgroundColor: '#1ea1f7'
     },
     title: {
       flexGrow: 1,
@@ -38,7 +37,7 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     searchIcon: {
-       padding: theme.spacing(0, 2),
+      padding: theme.spacing(0, 2),
       height: '100%',
       pointerEvents: 'none',
       display: 'flex',
@@ -46,7 +45,7 @@ const useStyles = makeStyles((theme: Theme) =>
       justifyContent: 'right',
       color: "#1ea1f7",
       fontSize: "18px",
-      fontFamily : "Helvetica-Bold"
+      fontFamily: "Helvetica-Bold"
     },
     inputRoot: {
       color: '#727272',
@@ -91,22 +90,22 @@ export default function SearchAppBar() {
                 input: classes.inputInput,
               }}
               inputProps={{ 'aria-label': 'search' }}
-              endAdornment={ <div className={classes.searchIcon}
-            
-              >
-              .GG
-            </div>}
-            value={searchStr}
-            onChange={(text) => setSearchStr(text.target.value)}
-            onKeyPress={(event) => {
+              endAdornment={<div className={classes.searchIcon}
 
-              if (event.key== 'Enter') {
-                dispatch(launchSearch(searchStr))
-              }
-                  
-          }}
+              >
+                .GG
+              </div>}
+              value={searchStr}
+              onChange={(text) => setSearchStr(text.target.value)}
+              onKeyPress={(event) => {
+
+                if (event.key == 'Enter') {
+                  dispatch(launchSearch(searchStr))
+                }
+
+              }}
             />
-                       
+
           </div>
         </Toolbar>
       </AppBar>

@@ -1,6 +1,5 @@
 import React from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
 import { Box, Grid, Paper } from '@material-ui/core';
 import Image from 'material-ui-image'
 import { League } from '../redux/type/summonerSummary';
@@ -14,73 +13,73 @@ const useStyles = makeStyles((theme: Theme) =>
         rankType: {
             color: "#879292",
             fontSize: "11px",
-            fontFamily : "AppleSDGothicNeo"
+            fontFamily: "AppleSDGothicNeo"
         },
-        positionInfo:{
+        positionInfo: {
             color: "#353a3a",
             fontSize: "12px",
-            fontFamily : "AppleSDGothicNeo"
+            fontFamily: "AppleSDGothicNeo"
         },
-        league:{
+        league: {
             color: "#1f8ecd",
             fontSize: "15px",
-            fontFamily : "Helvetica"
+            fontFamily: "Helvetica"
         },
-        lp:{
+        lp: {
             color: "#555e5e",
             fontSize: "12px",
-            fontFamily : "Helvetica"
+            fontFamily: "Helvetica"
         },
-        winCount:{
+        winCount: {
             color: "#879292",
             fontSize: "12px",
-            fontFamily : "Helvetica"
+            fontFamily: "Helvetica"
 
         },
-        winRatio : {
+        winRatio: {
             color: "#879292",
             fontSize: "12px",
-            fontFamily : "AppleSDGothicNeo"
+            fontFamily: "AppleSDGothicNeo"
         },
 
         textBold: {
-            fontWeight:"bold",
+            fontWeight: "bold",
 
         },
-        paperPadding:{
-            marginBottom : "5px"
+        paperPadding: {
+            marginBottom: "5px"
         }
 
     }));
 
-    interface RankCardProps {
-        leagues?:League[];
-      }
+interface RankCardProps {
+    leagues?: League[];
+}
 
 /// have to loop over taglist
-export default function RankCard(props:RankCardProps) {
+export default function RankCard(props: RankCardProps) {
     const classes = useStyles();
     const { leagues } = props;
     return (
         <div className={classes.root}>
-                            {leagues?.map((value, index) => {
-return(
-            <Paper variant="outlined" square className={classes.paperPadding} key={index}>
-                <Grid container  spacing={0} alignContent="center" alignItems="center">
-                    <Grid item xs>
-                        <Image src={value.tierRank.imageUrl} />
-                    </Grid>
-                    <Grid item xs={7} container direction="row">
-                        <Grid item xs={12} className={classes.rankType}>{value.tierRank.name}</Grid>
-                        <Grid item xs={12} className={classes.positionInfo}> <Box fontWeight='fontWeightBold' display='inline'> ? </Box> (total play )</Grid>
-                        <Grid item xs={12} className={classes.league + " " + classes.textBold}>{value.tierRank.tierDivision}</Grid>
-                        <Grid item xs={12} className={classes.lp + " " + classes.textBold}>{value.tierRank.lp} LP <Box className={classes.winCount} display='inline'> / {value.wins}W {value.losses}L</Box></Grid>
-                        <Grid item xs={12} className={classes.rankType}>win ration {Math.round(((value.wins / (value.wins + value.losses)) * 100))} %</Grid>
+            {leagues?.map((value, index) => {
+                return (
+                    <Paper variant="outlined" square className={classes.paperPadding} key={index}>
+                        <Grid container spacing={0} alignContent="center" alignItems="center">
+                            <Grid item xs>
+                                <Image src={value.tierRank.imageUrl} />
+                            </Grid>
+                            <Grid item xs={7} container direction="row">
+                                <Grid item xs={12} className={classes.rankType}>{value.tierRank.name}</Grid>
+                                <Grid item xs={12} className={classes.positionInfo}> <Box fontWeight='fontWeightBold' display='inline'> ? </Box> (total play )</Grid>
+                                <Grid item xs={12} className={classes.league + " " + classes.textBold}>{value.tierRank.tierDivision}</Grid>
+                                <Grid item xs={12} className={classes.lp + " " + classes.textBold}>{value.tierRank.lp} LP <Box className={classes.winCount} display='inline'> / {value.wins}W {value.losses}L</Box></Grid>
+                                <Grid item xs={12} className={classes.rankType}>win ration {Math.round(((value.wins / (value.wins + value.losses)) * 100))} %</Grid>
 
-                    </Grid>
-                </Grid>
-            </Paper>)
-                            })}
+                            </Grid>
+                        </Grid>
+                    </Paper>)
+            })}
         </div>
     );
 }

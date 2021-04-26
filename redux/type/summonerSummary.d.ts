@@ -50,17 +50,17 @@ export interface Summoner {
 export interface ISummonerSummary {
     summoner: Summoner;
 }
-  
-  
-  type SummonerSummaryAction = {
+
+
+type SummonerSummaryAction = {
     type: string
     name: string
     data?: ISummonerSummary
-  }
-  
-  type SummonerSummaryState = {
-      summoner?:ISummonerSummary
-  }
-  
-  
-  type DispatchSummonerSummary = (args: SummonerSummaryAction) => SummonerSummaryAction
+}
+
+type SummonerSummaryState = {
+    summoner?: ISummonerSummary
+}
+
+
+type DispatchSummonerSummary = (args: SummonerSummaryAction) => SummonerSummaryAction
