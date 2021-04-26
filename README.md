@@ -18,6 +18,7 @@ It will launch `expo` portal, you will just need to click on `run in web browser
 - Display teams members info on the game history.
 - Search historic (The search historic data are saved but not displayed !)
 - I have a date display issue. the library i'm used too is deprecated, didn't have time to fine an alternative.
+- Should have add placeholder data if the data is missing
 
 ### API limitation
 
