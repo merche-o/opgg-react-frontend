@@ -68,6 +68,15 @@ const useStyles = makeStyles((theme: Theme) =>
     textBig: {
       fontSize: "15px",
     },
+    win: {
+      backgroundColor: "#b0ceea",
+      marginBottom: "8px"
+    },
+    loose: {
+      backgroundColor: "#d6b5b2",
+      marginBottom: "8px"
+
+    }
   })
 );
 
@@ -84,7 +93,7 @@ export default function ChampionStatCell() {
     <div className={classes.root}>
       {matches?.games?.map((value, index) => {
         return (
-          <Paper variant="outlined" square key={index}>
+          <Paper variant="outlined" square key={index} className={value.isWin ? classes.win : classes.loose}>
             <Grid container spacing={3} alignContent="center" alignItems="center" className={classes.gridContainer} >
               <Grid item xs container direction="row" alignItems="center" alignContent="center" spacing={1} >
                 <Grid item xs={12} className={classes.appleSDGothicNeo + " " + classes.textBold + " " + classes.grey1Color}>

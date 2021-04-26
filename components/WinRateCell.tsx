@@ -1,6 +1,6 @@
 import React from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import { Box, Grid } from '@material-ui/core';
+import { Box, Grid, Typography } from '@material-ui/core';
 import {
   Chart,
   PieSeries,
@@ -9,7 +9,7 @@ import {
 import { GlobalState } from '../redux/type/global';
 import { useSelector } from 'react-redux';
 import { IGameData } from '../redux/type/gameData';
-import { KDAFormula, percentagePar } from '../tools/calctool';
+import { kdacolor, KDAFormula, percentagePar } from '../tools/calctool';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -74,7 +74,10 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     heightMax: {
       maxHeight: "75px"
-    }
+    },
+    greenKDA: { color: "#2daf7f" },
+    blueKDA: { color: "#1f8ecd" },
+    yellowKDA: { color: "#e19205" },
 
 
   })
@@ -108,8 +111,8 @@ export default function WinRateCell() {
           </Chart> </Box>
       </Grid>
       <Grid item xs={6} container direction="row">
-        <Grid item xs={12} className={classes.helveticaF + " " + classes.textBold + " " + classes.blackColor}> {Math.round((matches?.summary.kills ?? 0) / (matches?.games.length ?? 1))}/ {Math.round((matches?.summary.deaths ?? 0) / (matches?.games.length ?? 1))} / {Math.round((matches?.summary.assists ?? 0) / (matches?.games.length ?? 1))}</Grid>
-        <Grid item xs={12} className={classes.helveticaF + " " + classes.textBold + " " + classes.textBig}> {KDAFormula(matches?.summary.kills ?? 0, matches?.summary.assists ?? 0, matches?.summary.deaths ?? 0, matches?.games.length ?? 0)}:1</Grid>
+        <Grid item xs={12} className={classes.helveticaF + " " + classes.textBold + " " + classes.blackColor}> {Math.round((matches?.summary.kills ?? 0) / (matches?.games.length ?? 1))}/ <Box className={classes.redWR} display="inline">{Math.round((matches?.summary.deaths ?? 0) / (matches?.games.length ?? 1))}</Box> / {Math.round((matches?.summary.assists ?? 0) / (matches?.games.length ?? 1))}</Grid>
+        <Grid item xs={12} className={classes.helveticaF + " " + classes.textBold + " " + classes.textBig + " " + kdacolor(KDAFormula(matches?.summary.kills ?? 0, matches?.summary.assists ?? 0, matches?.summary.deaths ?? 0, matches?.games.length ?? 0), classes)}> {KDAFormula(matches?.summary.kills ?? 0, matches?.summary.assists ?? 0, matches?.summary.deaths ?? 0, matches?.games.length ?? 0)}:1 <Box className={percentagePar(matches?.summary.wins ?? 0, matches?.games.length ?? 0) >=60  ? classes.redWR : "" } display="inline"> ({percentagePar(matches?.summary.wins ?? 0, matches?.games.length ?? 0)}%) </Box></Grid>
       </Grid>
     </Grid>
   );

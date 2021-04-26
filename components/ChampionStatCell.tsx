@@ -2,7 +2,7 @@ import React from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { Avatar, Grid, Paper } from '@material-ui/core';
 import { Champion } from '../redux/type/championUsage';
-import { KDAFormula, percentagePar } from '../tools/calctool';
+import { kdacolor, KDAFormula, percentagePar } from '../tools/calctool';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -26,7 +26,10 @@ const useStyles = makeStyles((theme: Theme) =>
         yellowWR: { color: "#e19205" },
         containerPadding: {
             padding: "15px"
-        }
+        },
+        greenKDA: { color: "#2daf7f" },
+        blueKDA: { color: "#1f8ecd" },
+        yellowKDA: { color: "#e19205" },
 
     }));
 
@@ -54,11 +57,11 @@ export default function ChampionStatCell(props: ChampionStatCellProps) {
                             <Grid item xs={12} className={classes.secondLine}> CS {value.cs}</Grid>
                         </Grid>
                         <Grid item xs={3} container direction="row">
-                            <Grid item xs={12} className={classes.firstLine}>{KDAFormula(value.kills, value.assists, value.deaths, value.games)}:1 KDA</Grid>
+                            <Grid item xs={12} className={classes.firstLine + " " + kdacolor(KDAFormula(value.kills, value.assists, value.deaths, value.games), classes)}>{KDAFormula(value.kills, value.assists, value.deaths, value.games)}:1 KDA</Grid>
                             <Grid item xs={12} className={classes.secondLine}> {Math.round(value.kills / value.games)} / {Math.round(value.deaths / value.games)} / {Math.round(value.assists / value.games)}</Grid>
                         </Grid>
                         <Grid item xs={3} container direction="row">
-                            <Grid item xs={12} className={classes.firstLine}>{percentagePar(value.wins, value.games)}%</Grid>
+                            <Grid item xs={12} className={classes.firstLine + " " + (percentagePar(value.wins, value.games) >= 60 )? classes.redWR : ""}>{percentagePar(value.wins, value.games)}%</Grid>
                             <Grid item xs={12} className={classes.secondLine}> {value.games} Played </Grid>
                         </Grid>
                     </Grid>
