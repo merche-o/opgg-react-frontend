@@ -23,7 +23,7 @@ It will launch `expo` portal, you will just need to click on `run in web browser
 
 - finalize design integration (tab design, check all responsive breakpoint, font size/color/type, doublecheck spacing/padding/size)
 - Display teams members info on the game history.
-- Search historic (The search historic data are saved but not displayed !)
+- Search user : we can't see preview details of user while typing in the searchbar
 - I have a date display issue. the library i'm used too is deprecated, didn't have time to fine an alternative.
 - Should have add placeholder data if the data is missing
 
