@@ -12,11 +12,12 @@ export const reducerSearch = (
 ): SearchState => {
   switch (action.type) {
     case actionTypes.LAUNCH_SEARCH:
+      state.search.history.push(action.data!.currentValue)
       return {
         ...state,
         search: {
           currentValue: action.data!.currentValue,
-          history: action.data!.history
+          history: state.search.history
         }
       }
   }

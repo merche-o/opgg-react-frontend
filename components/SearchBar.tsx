@@ -4,8 +4,10 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import InputBase from '@material-ui/core/InputBase';
 import { createStyles, fade, Theme, makeStyles } from '@material-ui/core/styles';
+import Autocomplete from "@material-ui/lab/Autocomplete";
+import { useDispatch, useSelector } from 'react-redux';
+import { GlobalState } from '../redux/type/global';
 import { launchSearch } from '../redux/actionSearch';
-import { useDispatch } from 'react-redux';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -69,10 +71,12 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function SearchAppBar() {
   const classes = useStyles();
-
+  const searchData: [string] = useSelector(
+    (state: GlobalState) => state.searchData.search.history
+  );
   const [searchStr, setSearchStr] = useState<string>("");
-
   const dispatch: Dispatch<any> = useDispatch();
+
 
   return (
     <div className={classes.root}>
@@ -83,26 +87,24 @@ export default function SearchAppBar() {
           </Typography>
           <div className={classes.search}>
 
-            <InputBase
-              placeholder="name1,name2..."
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ 'aria-label': 'search' }}
-              endAdornment={<div className={classes.searchIcon}
 
-              >
-                .GG
-              </div>}
-              value={searchStr}
-              onChange={(text) => setSearchStr(text.target.value)}
+
+            <Autocomplete
+              id="combo-box-demo"
+              options={searchData}
               onKeyPress={(event) => {
-
                 if (event.key == 'Enter') {
-                  dispatch(launchSearch(searchStr))
+                   dispatch(launchSearch(searchStr))
                 }
 
+              }}
+              style={{ width: 300 }}
+              renderInput={(params) => {
+                const { InputLabelProps, InputProps, ...rest } = params;
+                params.InputProps.endAdornment = <div className={classes.searchIcon}>.GG</div>
+                params.inputProps = { 'aria-label': 'search' }
+                params.InputProps.className = classes.inputRoot
+                return <InputBase placeholder="name1,name2..." {...params.InputProps} {...rest} onChange={(text) => setSearchStr(text.target.value)} />;
               }}
             />
 
