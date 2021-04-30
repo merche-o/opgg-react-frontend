@@ -4,6 +4,7 @@ import {
   Avatar,
   Box,
   Chip,
+  Divider,
   Grid,
   GridList,
   GridListTile,
@@ -23,7 +24,7 @@ const useStyles = makeStyles((theme: Theme) =>
       flexGrow: 1,
     },
     gridContainer: {
-      padding: "15px",
+      padding: "7px",
     },
     firstLine: {
       color: "#5e5e5e",
@@ -62,6 +63,7 @@ const useStyles = makeStyles((theme: Theme) =>
     yellowWR: { color: "#e19205" },
     grey1Color: { color: "#555555" },
     grey2Color: { color: "#555e5e" },
+    lightGrey: {color: "#948e8d"},
     blackColor: { color: "333333" },
     textBold: {
       fontWeight: "bold",
@@ -77,7 +79,15 @@ const useStyles = makeStyles((theme: Theme) =>
       backgroundColor: "#d6b5b2",
       marginBottom: "8px"
 
-    }
+    },
+     chipStyle:{
+      display: "inline-block",
+      background:" #ee5a52",
+      border: "1px solid #c6443e",
+      borderRadius: "15px",
+      padding: "2px 5px",
+      lineHeight: "1"
+     }
   })
 );
 
@@ -105,8 +115,15 @@ export default function ChampionStatCell(props: ChampionStatCellProps) {
                 <Grid item xs={12} className={classes.appleSDGothicNeo + " " + classes.grey1Color}>
 
                   {<Moment fromNow ago> Date(value.createDate).toUTCString()</Moment>}
+                  
                 </Grid>
+                <Grid item xs={12}>
+                <Divider light />
+
+                </Grid>
+
                 <Grid item xs={12} className={classes.appleSDGothicNeo + " " + classes.textBold + " " + classes.redWR}>
+                  
                   {value.isWin === true && (
                     <Box className={classes.greenWR}>  Victory</Box>
                   )
@@ -169,24 +186,50 @@ export default function ChampionStatCell(props: ChampionStatCellProps) {
                     classes.textBig
                   }
                 >
-                  <Typography display="inline">{value.stats.general.kill}</Typography> / <Typography display="inline" className={classes.redWR}>{value.stats.general.death}</Typography> / <Typography display="inline">{value.stats.general.assist}</Typography>
+                  <Typography className={
+                    classes.helveticaF +
+                    " " +
+                    classes.textBold +
+                    " " +
+                    classes.grey2Color +
+                    " " +
+                    classes.textBig
+                  } display="inline">{value.stats.general.kill}</Typography>  <Typography display="inline" className={classes.helveticaF +
+                    " " + classes.textBig + " " + classes.lightGrey}> / </Typography> <Typography display="inline" className={   classes.helveticaF +
+                    " " +
+                    classes.textBold +
+                    " " +
+                    classes.textBig + " " + classes.redWR}>{value.stats.general.death}</Typography> <Typography display="inline" className={classes.helveticaF +
+                      " " + classes.textBig + " " + classes.lightGrey}> / </Typography> <Typography  className={
+                      classes.helveticaF +
+                      " " +
+                      classes.textBold +
+                      " " +
+                      classes.grey2Color +
+                      " " +
+                      classes.textBig
+                    } display="inline">{value.stats.general.assist}</Typography>
                 </Grid>
                 <Grid
                   item
                   xs={12}
-                  className={
-                    classes.appleSDGothicNeo + " " + classes.grey2Color
-                  }
+                 className={classes.appleSDGothicNeo}
                 >
-                  {value.stats.general.kdaString} KDA
+                  <Typography display="inline" className={classes.textBold + " " + classes.blackColor + " " + classes.appleSDGothicNeo} >{value.stats.general.kdaString} </Typography> <Typography  display="inline" className={
+                    classes.appleSDGothicNeo + " " + classes.grey2Color
+                  }>KDA</Typography>
                 </Grid>
-                <Grid item xs={12} className={classes.appleSDGothicNeo}>
+                <Grid container item xs={12} spacing={3} alignContent="center" alignItems="center" className={classes.appleSDGothicNeo }>
+                
                   {value.stats.general.largestMultiKillString != "" && (
-                    <Chip size="small" label={value.stats.general.largestMultiKillString} />
+                                 <span className={classes.chipStyle}> {value.stats.general.largestMultiKillString} </span>
+
                   )}
                   {value.stats.general.opScoreBadge != "" && (
-                    <Chip size="small" label={value.stats.general.opScoreBadge} />
+                    <span className={classes.chipStyle}> {value.stats.general.opScoreBadge} </span>
+                   
                   )}
+                
                 </Grid>
               </Grid>
               <Grid
