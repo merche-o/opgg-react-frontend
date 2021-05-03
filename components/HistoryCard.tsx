@@ -1,5 +1,10 @@
 import React from "react";
-import { createStyles, makeStyles, Theme, withStyles } from "@material-ui/core/styles";
+import {
+  createStyles,
+  makeStyles,
+  Theme,
+  withStyles,
+} from "@material-ui/core/styles";
 import {
   Avatar,
   Box,
@@ -11,13 +16,13 @@ import {
   Paper,
   Typography,
 } from "@material-ui/core";
-import Tooltip, { TooltipProps } from '@material-ui/core/Tooltip';
-import parse from 'html-react-parser';
+import Tooltip, { TooltipProps } from "@material-ui/core/Tooltip";
+import parse from "html-react-parser";
 
 import { IGameData, Item } from "../redux/type/gameData";
 import { useSelector } from "react-redux";
 import { GlobalState } from "../redux/type/global";
-import Moment from 'react-moment';
+import Moment from "react-moment";
 import TeamDisplayCell from "./TeamDisplayCell";
 import { rootItem } from "../redux/type/item";
 import { timeDifference } from "../tools/calctool";
@@ -77,50 +82,47 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     win: {
       backgroundColor: "#b0ceea",
-      marginBottom: "8px"
+      marginBottom: "8px",
     },
     loose: {
       backgroundColor: "#d6b5b2",
-      marginBottom: "8px"
-
+      marginBottom: "8px",
     },
     chipStyleRed: {
       display: "inline-block",
-      background: " #ee5a52",
+      background: " #ec4f48",
       border: "1px solid #c6443e",
       borderRadius: "15px",
-      padding: "2px 5px",
+      padding: "2px 4px",
       lineHeight: "1",
       color: "#ffffff",
-      marginRigt: "2px"
-
+      marginRight: "2px",
     },
     chipColorPurple: {
       display: "inline-block",
       background: " #8c51c5",
       border: "1px solid #7f3590",
       borderRadius: "15px",
-      padding: "2px 5px",
+      padding: "2px 4px",
       lineHeight: "1",
-      color: "#ffffff"
+      color: "#ffffff",
     },
     chipPadding: {
       padding: "15px",
-
     }
   })
 );
 
 const HtmlTooltip = withStyles((theme: Theme) => ({
   tooltip: {
-    backgroundColor: '#222727',
+    backgroundColor: "#222727",
     maxWidth: 220,
     fontSize: theme.typography.pxToRem(11),
   },
 }))(Tooltip);
 
 interface HistoryCardProps {
-  matches?: IGameData
+  matches?: IGameData;
 }
 
 export default function HistoryCard(props: HistoryCardProps) {
@@ -132,77 +134,126 @@ export default function HistoryCard(props: HistoryCardProps) {
   );
 
   function getItemID(data: string) {
+    var start = data.search("item/");
+    var end = data.search(".png");
 
-    var start = data.search("item/")
-    var end = data.search(".png")
-
-    return data.slice(start + 5, end)
-
+    return data.slice(start + 5, end);
   }
 
   function getChampionName(data: string) {
-    var start = data.search("champion/")
-    var end = data.search(".png")
+    var start = data.search("champion/");
+    var end = data.search(".png");
 
-    return data.slice(start + 9, end)
-
+    return data.slice(start + 9, end);
   }
 
   function returnDesc(item: Item) {
-    var id = getItemID(item.imageUrl)
+    var id = getItemID(item.imageUrl);
 
     if (typeof itemsCollection != typeof []) {
-      return ""
+      return "";
     }
-    var citem = itemsCollection[id]
+    var citem = itemsCollection[id];
     if (citem == undefined) {
-      return ""
+      return "";
     } else {
-      return <React.Fragment>    {citem["name"]} <br /><br />  {citem["plaintext"]}   <br /><br />   {parse(citem["description"])}  </React.Fragment>
+      return (
+        <React.Fragment>
+          {citem["name"]} <br />
+          <br /> {citem["plaintext"]} <br />
+          <br /> {parse(citem["description"])}
+        </React.Fragment>
+      );
     }
   }
-  
-  function returnMinSeconDate(timestamp:number){
-    var time = new Date(timestamp * 1000)
-  
-    return time.getMinutes()+"m " + time.getSeconds() +"s"
 
+  function returnMinSeconDate(timestamp: number) {
+    var time = new Date(timestamp * 1000);
+
+    return time.getMinutes() + "m " + time.getSeconds() + "s";
   }
   return (
-
     <div className={classes.root}>
       {matches?.games?.map((value, index) => {
         return (
-          <Paper variant="outlined" square key={index} className={value.isWin ? classes.win : classes.loose} >
-            <Grid container spacing={1} alignContent="center" alignItems="center" className={classes.gridContainer} key={index} >
-              <Grid item xs container direction="row" alignItems="center" alignContent="center" spacing={0} >
-                <Grid item xs={12} className={classes.appleSDGothicNeo + " " + classes.textBold + " " + classes.grey1Color}>
+          <Paper
+            variant="outlined"
+            square
+            key={index}
+            className={value.isWin ? classes.win : classes.loose}
+          >
+            <Grid
+              container
+              spacing={1}
+              alignContent="center"
+              alignItems="center"
+              className={classes.gridContainer}
+              key={index}
+            >
+              <Grid
+                item
+                xs
+                container
+                direction="row"
+                alignItems="center"
+                alignContent="center"
+                spacing={1}
+              >
+                <Grid
+                  item
+                  xs={11}
+                  className={
+                    classes.appleSDGothicNeo +
+                    " " +
+                    classes.textBold +
+                    " " +
+                    classes.grey1Color
+                  }
+                >
                   {value.gameType}
                 </Grid>
-                <Grid item xs={12} className={classes.appleSDGothicNeo + " " + classes.grey1Color}>
-                {timeDifference(Date.now(), value.createDate * 1000)}
+                <Grid
+                  item
+                  xs={11}
+                  className={
+                    classes.appleSDGothicNeo + " " + classes.grey1Color
+                  }
+                >
+                  {timeDifference(Date.now(), value.createDate * 1000)}
                 </Grid>
-                <Grid item xs={12}>
-                  <Divider light />
-
+                <Grid item xs={11}>
+                  <Divider  variant="middle" light />
                 </Grid>
 
-                <Grid item xs={12} className={classes.appleSDGothicNeo + " " + classes.textBold + " " + classes.redWR}>
-
+                <Grid
+                  item
+                  xs={11}
+                  className={
+                    classes.appleSDGothicNeo +
+                    " " +
+                    classes.textBold +
+                    " " +
+                    classes.redWR
+                  }
+                >
                   {value.isWin === true && (
-                    <Box className={classes.greenWR}>  Victory</Box>
-                  )
-                  }
-                  {value.isWin === false && (
-                    <Box>Defeat</Box>
-                  )
-                  }
+                    <Box className={classes.greenWR}> Victory</Box>
+                  )}
+                  {value.isWin === false && <Box>Defeat</Box>}
                 </Grid>
-                <Grid item xs={12} className={classes.appleSDGothicNeo + "  " + classes.grey1Color}>
+                <Grid
+                  item
+                  xs={11}
+                  className={
+                    classes.appleSDGothicNeo + "  " + classes.grey1Color
+                  }
+                >
                   {returnMinSeconDate(value.gameLength)}
                 </Grid>
               </Grid>
-              <Grid item xs
+              <Grid
+                item
+                xs
                 container
                 direction="row"
                 alignItems="center"
@@ -215,13 +266,13 @@ export default function HistoryCard(props: HistoryCardProps) {
                 <Grid item xs={6}>
                   <GridList cols={2} spacing={1}>
                     {value.spells.map((tile, index) => (
-                        <GridListTile
-                          key={index}
-                          cols={1}
-                          className={classes.gridTileStyle}
-                        >
-                          <img src={tile.imageUrl} alt={tile.imageUrl} />
-                        </GridListTile>
+                      <GridListTile
+                        key={index}
+                        cols={1}
+                        className={classes.gridTileStyle}
+                      >
+                        <img src={tile.imageUrl} alt={tile.imageUrl} />
+                      </GridListTile>
                     ))}
                   </GridList>
                 </Grid>
@@ -249,48 +300,112 @@ export default function HistoryCard(props: HistoryCardProps) {
                     classes.textBig
                   }
                 >
-                  <Typography className={
-                    classes.helveticaF +
-                    " " +
-                    classes.textBold +
-                    " " +
-                    classes.grey2Color +
-                    " " +
-                    classes.textBig
-                  } display="inline">{value.stats.general.kill}</Typography>  <Typography display="inline" className={classes.helveticaF +
-                    " " + classes.textBig + " " + classes.lightGrey}> / </Typography> <Typography display="inline" className={classes.helveticaF +
+                  <Typography
+                    className={
+                      classes.helveticaF +
                       " " +
                       classes.textBold +
                       " " +
-                      classes.textBig + " " + classes.redWR}>{value.stats.general.death}</Typography> <Typography display="inline" className={classes.helveticaF +
-                        " " + classes.textBig + " " + classes.lightGrey}> / </Typography> <Typography className={
-                          classes.helveticaF +
-                          " " +
-                          classes.textBold +
-                          " " +
-                          classes.grey2Color +
-                          " " +
-                          classes.textBig
-                        } display="inline">{value.stats.general.assist}</Typography>
-                </Grid>
-                <Grid
-                  item
-                  xs={11}
-                  className={classes.appleSDGothicNeo}
-                >
-                  <Typography display="inline" className={classes.textBold + " " + classes.blackColor + " " + classes.appleSDGothicNeo} >{value.stats.general.kdaString} </Typography> <Typography display="inline" className={
-                    classes.appleSDGothicNeo + " " + classes.grey2Color
-                  }>KDA</Typography>
+                      classes.grey2Color +
+                      " " +
+                      classes.textBig
+                    }
+                    display="inline"
+                  >
+                    {value.stats.general.kill + " "}
+                  </Typography>
+                  <Typography
+                    display="inline"
+                    className={
+                      classes.helveticaF +
+                      " " +
+                      classes.textBig +
+                      " " +
+                      classes.lightGrey
+                    }
+                  >
+                    /
+                  </Typography>
+                  <Typography
+                    display="inline"
+                    className={
+                      classes.helveticaF +
+                      " " +
+                      classes.textBold +
+                      " " +
+                      classes.textBig +
+                      " " +
+                      classes.redWR
+                    }
+                  >
+                    {" " + value.stats.general.death + " "}
+                  </Typography>
+                  <Typography
+                    display="inline"
+                    className={
+                      classes.helveticaF +
+                      " " +
+                      classes.textBig +
+                      " " +
+                      classes.lightGrey
+                    }
+                  >
+                    /
+                  </Typography>
+                  <Typography
+                    className={
+                      classes.helveticaF +
+                      " " +
+                      classes.textBold +
+                      " " +
+                      classes.grey2Color +
+                      " " +
+                      classes.textBig
+                    }
+                    display="inline"
+                  >
+                    {" " + value.stats.general.assist}
+                  </Typography>
                 </Grid>
                 <Grid item xs={11} className={classes.appleSDGothicNeo}>
-                  <Typography display="inline" className={classes.appleSDGothicNeo + " " + classes.chipPadding} align="center" >
+                  <Typography
+                    display="inline"
+                    className={
+                      classes.textBold +
+                      " " +
+                      classes.blackColor +
+                      " " +
+                      classes.helveticaF
+                    }
+                  >
+                    {value.stats.general.kdaString + " "}
+                  </Typography>
+                  <Typography
+                    display="inline"
+                    className={
+                      classes.appleSDGothicNeo + " " + classes.grey2Color
+                    }
+                  >
+                    KDA
+                  </Typography>
+                </Grid>
+                <Grid item xs={11} className={classes.appleSDGothicNeo}>
+                  <Typography
+                    display="inline"
+                    className={
+                      classes.appleSDGothicNeo 
+                    }
+                    align="center"
+                  >
                     {value.stats.general.largestMultiKillString != "" && (
-                      <span className={classes.chipStyleRed}> {value.stats.general.largestMultiKillString} </span>
-
+                      <span className={classes.chipStyleRed}>
+                        {value.stats.general.largestMultiKillString}
+                      </span>
                     )}
                     {value.stats.general.opScoreBadge != "" && (
-                      <span className={classes.chipColorPurple}> {value.stats.general.opScoreBadge} </span>
-
+                      <span className={classes.chipColorPurple}>
+                        {value.stats.general.opScoreBadge}
+                      </span>
                     )}
                   </Typography>
                 </Grid>
@@ -332,7 +447,7 @@ export default function HistoryCard(props: HistoryCardProps) {
                 <Grid item xs={12} className={classes.firstLine}>
                   <GridList cols={4} spacing={1}>
                     {value.items.map((tile) => (
-                      <HtmlTooltip title={returnDesc(tile)} arrow >
+                      <HtmlTooltip title={returnDesc(tile)} arrow>
                         <GridListTile
                           key={tile.imageUrl}
                           cols={1}
@@ -342,6 +457,19 @@ export default function HistoryCard(props: HistoryCardProps) {
                         </GridListTile>
                       </HtmlTooltip>
                     ))}
+
+                    <HtmlTooltip title={"Builds"} arrow>
+                      <GridListTile
+                        key={"builds"}
+                        cols={1}
+                        className={classes.gridTileStyle} >
+                        {value.isWin ? (
+                          <img src={require("../assets/icon-buildblue-p.png")} />
+                        ) : (
+                          <img src={require("../assets/icon-buildred-p.png")} />
+                        )}  
+                      </GridListTile>
+                    </HtmlTooltip>
                   </GridList>
                 </Grid>
                 <Grid
@@ -350,21 +478,36 @@ export default function HistoryCard(props: HistoryCardProps) {
                   className={
                     classes.helveticaF + " " + classes.blackColor + " "
                   }
-                  container spacing={1}>
+                  container
+                  spacing={1}
+                >
                   <Grid item xs={1}>
-                    {value.isWin ? <img src={require('../assets/icon-ward-blue.svg')} /> : <img src={require('../assets/icon-ward-red.svg')} />
-
-                    }
+                    {value.isWin ? (
+                      <img src={require("../assets/icon-ward-blue.svg")} />
+                    ) : (
+                      <img src={require("../assets/icon-ward-red.svg")} />
+                    )}
                   </Grid>
-                  <Grid item xs={10}  >
-                    <Typography className={
-                    classes.helveticaF + " " + classes.blackColor + " "
-                  } display="inline" >controle ward {value.stats.ward.sightWardsBought + value.stats.ward.visionWardsBought} </Typography>
+                  <Grid item xs={10}>
+                    <Typography
+                      className={
+                        classes.helveticaF + " " + classes.blackColor + " "
+                      }
+                      display="inline"
+                    >
+                      Controle Ward
+                      {+" " + value.stats.ward.sightWardsBought +
+                        value.stats.ward.visionWardsBought}
+                    </Typography>
                   </Grid>
                 </Grid>
               </Grid>
               <Grid item xs container direction="row" spacing={1}>
-                <TeamDisplayCell gameId={value.gameId} userName={value.summonerName} key={value.gameId} />
+                <TeamDisplayCell
+                  gameId={value.gameId}
+                  userName={value.summonerName}
+                  key={value.gameId}
+                />
               </Grid>
             </Grid>
           </Paper>
