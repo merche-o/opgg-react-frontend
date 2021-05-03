@@ -158,7 +158,7 @@ export default function HistoryCard(props: HistoryCardProps) {
     if (citem == undefined) {
       return ""
     } else {
-      return <React.Fragment>    {citem["name"]} <br /><br />   {parse(citem["description"])} <br /><br />  {citem["plaintext"]}  </React.Fragment>
+      return <React.Fragment>    {citem["name"]} <br /><br />  {citem["plaintext"]}   <br /><br />   {parse(citem["description"])}  </React.Fragment>
     }
   }
   
@@ -350,14 +350,16 @@ export default function HistoryCard(props: HistoryCardProps) {
                   className={
                     classes.helveticaF + " " + classes.blackColor + " "
                   }
-                  container spacing={2}>
+                  container spacing={1}>
                   <Grid item xs={1}>
                     {value.isWin ? <img src={require('../assets/icon-ward-blue.svg')} /> : <img src={require('../assets/icon-ward-red.svg')} />
 
                     }
                   </Grid>
-                  <Grid item xs={9}>
-                    controle ward {value.stats.ward.sightWardsBought + value.stats.ward.visionWardsBought}
+                  <Grid item xs={10}  >
+                    <Typography className={
+                    classes.helveticaF + " " + classes.blackColor + " "
+                  } display="inline" >controle ward {value.stats.ward.sightWardsBought + value.stats.ward.visionWardsBought} </Typography>
                   </Grid>
                 </Grid>
               </Grid>
