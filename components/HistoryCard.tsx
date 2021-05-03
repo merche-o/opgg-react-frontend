@@ -20,6 +20,7 @@ import { GlobalState } from "../redux/type/global";
 import Moment from 'react-moment';
 import TeamDisplayCell from "./TeamDisplayCell";
 import { rootItem } from "../redux/type/item";
+import { timeDifference } from "../tools/calctool";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -164,7 +165,13 @@ export default function HistoryCard(props: HistoryCardProps) {
       return <React.Fragment>    {citem["name"]} <br /><br />   {parse(citem["description"])} <br /><br />  {citem["plaintext"]}  </React.Fragment>
     }
   }
+  
+  function returnMinSeconDate(timestamp:number){
+    var time = new Date(timestamp * 1000)
+  
+    return time.getMinutes()+"m " + time.getSeconds() +"s"
 
+  }
   return (
 
     <div className={classes.root}>
@@ -177,9 +184,7 @@ export default function HistoryCard(props: HistoryCardProps) {
                   {value.gameType}
                 </Grid>
                 <Grid item xs={12} className={classes.appleSDGothicNeo + " " + classes.grey1Color}>
-
-                  {<Moment fromNow ago> Date(value.createDate).toUTCString()</Moment>}
-
+                {timeDifference(Date.now(), value.createDate * 1000)}
                 </Grid>
                 <Grid item xs={12}>
                   <Divider light />
@@ -198,7 +203,7 @@ export default function HistoryCard(props: HistoryCardProps) {
                   }
                 </Grid>
                 <Grid item xs={12} className={classes.appleSDGothicNeo + "  " + classes.grey1Color}>
-                  {new Date(value.gameLength * 1000).toISOString().substr(11, 8)}
+                  {returnMinSeconDate(value.gameLength)}
                 </Grid>
               </Grid>
               <Grid item xs
@@ -326,7 +331,7 @@ export default function HistoryCard(props: HistoryCardProps) {
                   xs={11}
                   className={classes.helveticaF + " " + classes.redWR}
                 >
-                  P/KILL {value.stats.general.contributionForKillRate}
+                  P/Kill {value.stats.general.contributionForKillRate}
                 </Grid>
               </Grid>
               <Grid item xs container direction="row" spacing={1}>
