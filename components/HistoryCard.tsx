@@ -92,7 +92,7 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: "2px 5px",
       lineHeight: "1",
       color: "#ffffff",
-      margin: "1px"
+      marginRigt: "2px"
 
     },
     chipColorPurple: {
@@ -102,11 +102,7 @@ const useStyles = makeStyles((theme: Theme) =>
       borderRadius: "15px",
       padding: "2px 5px",
       lineHeight: "1",
-      color: "#ffffff",
-      margin: "1px"
-
-
-
+      color: "#ffffff"
     },
     chipPadding: {
       padding: "15px",
@@ -219,7 +215,6 @@ export default function HistoryCard(props: HistoryCardProps) {
                 <Grid item xs={6}>
                   <GridList cols={2} spacing={1}>
                     {value.spells.map((tile, index) => (
-                      <Tooltip title={index}>
                         <GridListTile
                           key={index}
                           cols={1}
@@ -227,7 +222,6 @@ export default function HistoryCard(props: HistoryCardProps) {
                         >
                           <img src={tile.imageUrl} alt={tile.imageUrl} />
                         </GridListTile>
-                      </Tooltip>
                     ))}
                   </GridList>
                 </Grid>
