@@ -14,3 +14,7 @@ export const LAUNCH_SEARCH = "LAUNCH_SEARCH"
 //TEAM
 
 export const GET_TEAM_DATA = "GET_TEAM_DATA"
+
+//ITEMS
+
+export const GET_ITEMS_DATA = "GET_ITEMS_DATA"

@@ -1,6 +1,6 @@
 import * as actionTypes from "./actionTypes"
 import { BASE_URL } from "../tools/env";
-import { GameDataAction, DispatchGameData, IGameData } from "./type/GameData";
+import { GameDataAction, DispatchGameData, IGameData, Game } from "./type/GameData";
 
 export function getGameData(name: string) {
 
@@ -20,7 +20,6 @@ export function getGameDataData(gameData: GameDataAction) {
       .then(response => response.json())
       .then(response => {
         gameData.data = response as IGameData
-
         dispatch(gameData)
 
       })

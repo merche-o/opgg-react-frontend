@@ -1,5 +1,5 @@
 import React from "react";
-import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import { createStyles, makeStyles, Theme, withStyles } from "@material-ui/core/styles";
 import {
   Avatar,
   Box,
@@ -9,14 +9,17 @@ import {
   GridList,
   GridListTile,
   Paper,
-  Tooltip,
   Typography,
 } from "@material-ui/core";
-import { IGameData } from "../redux/type/gameData";
+import Tooltip, { TooltipProps } from '@material-ui/core/Tooltip';
+import parse from 'html-react-parser';
+
+import { IGameData, Item } from "../redux/type/gameData";
 import { useSelector } from "react-redux";
 import { GlobalState } from "../redux/type/global";
 import Moment from 'react-moment';
 import TeamDisplayCell from "./TeamDisplayCell";
+import { rootItem } from "../redux/type/item";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -63,7 +66,7 @@ const useStyles = makeStyles((theme: Theme) =>
     yellowWR: { color: "#e19205" },
     grey1Color: { color: "#555555" },
     grey2Color: { color: "#555e5e" },
-    lightGrey: {color: "#948e8d"},
+    lightGrey: { color: "#948e8d" },
     blackColor: { color: "333333" },
     textBold: {
       fontWeight: "bold",
@@ -80,50 +83,111 @@ const useStyles = makeStyles((theme: Theme) =>
       marginBottom: "8px"
 
     },
-     chipStyle:{
+    chipStyleRed: {
       display: "inline-block",
-      background:" #ee5a52",
+      background: " #ee5a52",
       border: "1px solid #c6443e",
       borderRadius: "15px",
       padding: "2px 5px",
-      lineHeight: "1"
-     }
+      lineHeight: "1",
+      color: "#ffffff",
+      margin: "1px"
+
+    },
+    chipColorPurple: {
+      display: "inline-block",
+      background: " #8c51c5",
+      border: "1px solid #7f3590",
+      borderRadius: "15px",
+      padding: "2px 5px",
+      lineHeight: "1",
+      color: "#ffffff",
+      margin: "1px"
+
+
+
+    },
+    chipPadding: {
+      padding: "15px",
+
+    }
   })
 );
 
-interface ChampionStatCellProps {
+const HtmlTooltip = withStyles((theme: Theme) => ({
+  tooltip: {
+    backgroundColor: '#222727',
+    maxWidth: 220,
+    fontSize: theme.typography.pxToRem(11),
+  },
+}))(Tooltip);
+
+interface HistoryCardProps {
   matches?: IGameData
 }
 
-/// have to loop over taglist
-export default function ChampionStatCell(props: ChampionStatCellProps) {
+export default function HistoryCard(props: HistoryCardProps) {
   const classes = useStyles();
   const { matches } = props;
 
+  const itemsCollection: rootItem[] | undefined = useSelector(
+    (state: GlobalState) => state.itemData.data
+  );
+
+  function getItemID(data: string) {
+
+    var start = data.search("item/")
+    var end = data.search(".png")
+
+    return data.slice(start + 5, end)
+
+  }
+
+  function getChampionName(data: string) {
+    var start = data.search("champion/")
+    var end = data.search(".png")
+
+    return data.slice(start + 9, end)
+
+  }
+
+  function returnDesc(item: Item) {
+    var id = getItemID(item.imageUrl)
+
+    if (typeof itemsCollection != typeof []) {
+      return ""
+    }
+    var citem = itemsCollection[id]
+    if (citem == undefined) {
+      return ""
+    } else {
+      return <React.Fragment>    {citem["name"]} <br /><br />   {parse(citem["description"])} <br /><br />  {citem["plaintext"]}  </React.Fragment>
+    }
+  }
 
   return (
 
     <div className={classes.root}>
       {matches?.games?.map((value, index) => {
         return (
-          <Paper variant="outlined" square key={index} className={value.isWin ? classes.win : classes.loose}>
-            <Grid container spacing={3} alignContent="center" alignItems="center" className={classes.gridContainer} >
-              <Grid item xs container direction="row" alignItems="center" alignContent="center" spacing={1} >
+          <Paper variant="outlined" square key={index} className={value.isWin ? classes.win : classes.loose} >
+            <Grid container spacing={1} alignContent="center" alignItems="center" className={classes.gridContainer} key={index} >
+              <Grid item xs container direction="row" alignItems="center" alignContent="center" spacing={0} >
                 <Grid item xs={12} className={classes.appleSDGothicNeo + " " + classes.textBold + " " + classes.grey1Color}>
                   {value.gameType}
                 </Grid>
                 <Grid item xs={12} className={classes.appleSDGothicNeo + " " + classes.grey1Color}>
 
                   {<Moment fromNow ago> Date(value.createDate).toUTCString()</Moment>}
-                  
+
                 </Grid>
                 <Grid item xs={12}>
-                <Divider light />
+                  <Divider light />
 
                 </Grid>
 
                 <Grid item xs={12} className={classes.appleSDGothicNeo + " " + classes.textBold + " " + classes.redWR}>
-                  
+
                   {value.isWin === true && (
                     <Box className={classes.greenWR}>  Victory</Box>
                   )
@@ -169,13 +233,13 @@ export default function ChampionStatCell(props: ChampionStatCellProps) {
                     classes.appleSDGothicNeo + "  " + classes.grey1Color
                   }
                 >
-                  {value.summonerName}
+                  {getChampionName(value.champion.imageUrl)}
                 </Grid>
               </Grid>
               <Grid item xs container direction="row" spacing={1}>
                 <Grid
                   item
-                  xs={12}
+                  xs={11}
                   className={
                     classes.helveticaF +
                     " " +
@@ -195,41 +259,41 @@ export default function ChampionStatCell(props: ChampionStatCellProps) {
                     " " +
                     classes.textBig
                   } display="inline">{value.stats.general.kill}</Typography>  <Typography display="inline" className={classes.helveticaF +
-                    " " + classes.textBig + " " + classes.lightGrey}> / </Typography> <Typography display="inline" className={   classes.helveticaF +
-                    " " +
-                    classes.textBold +
-                    " " +
-                    classes.textBig + " " + classes.redWR}>{value.stats.general.death}</Typography> <Typography display="inline" className={classes.helveticaF +
-                      " " + classes.textBig + " " + classes.lightGrey}> / </Typography> <Typography  className={
-                      classes.helveticaF +
+                    " " + classes.textBig + " " + classes.lightGrey}> / </Typography> <Typography display="inline" className={classes.helveticaF +
                       " " +
                       classes.textBold +
                       " " +
-                      classes.grey2Color +
-                      " " +
-                      classes.textBig
-                    } display="inline">{value.stats.general.assist}</Typography>
+                      classes.textBig + " " + classes.redWR}>{value.stats.general.death}</Typography> <Typography display="inline" className={classes.helveticaF +
+                        " " + classes.textBig + " " + classes.lightGrey}> / </Typography> <Typography className={
+                          classes.helveticaF +
+                          " " +
+                          classes.textBold +
+                          " " +
+                          classes.grey2Color +
+                          " " +
+                          classes.textBig
+                        } display="inline">{value.stats.general.assist}</Typography>
                 </Grid>
                 <Grid
                   item
-                  xs={12}
-                 className={classes.appleSDGothicNeo}
+                  xs={11}
+                  className={classes.appleSDGothicNeo}
                 >
-                  <Typography display="inline" className={classes.textBold + " " + classes.blackColor + " " + classes.appleSDGothicNeo} >{value.stats.general.kdaString} </Typography> <Typography  display="inline" className={
+                  <Typography display="inline" className={classes.textBold + " " + classes.blackColor + " " + classes.appleSDGothicNeo} >{value.stats.general.kdaString} </Typography> <Typography display="inline" className={
                     classes.appleSDGothicNeo + " " + classes.grey2Color
                   }>KDA</Typography>
                 </Grid>
-                <Grid container item xs={12} spacing={3} alignContent="center" alignItems="center" className={classes.appleSDGothicNeo }>
-                
-                  {value.stats.general.largestMultiKillString != "" && (
-                                 <span className={classes.chipStyle}> {value.stats.general.largestMultiKillString} </span>
+                <Grid item xs={11} className={classes.appleSDGothicNeo}>
+                  <Typography display="inline" className={classes.appleSDGothicNeo + " " + classes.chipPadding} align="center" >
+                    {value.stats.general.largestMultiKillString != "" && (
+                      <span className={classes.chipStyleRed}> {value.stats.general.largestMultiKillString} </span>
 
-                  )}
-                  {value.stats.general.opScoreBadge != "" && (
-                    <span className={classes.chipStyle}> {value.stats.general.opScoreBadge} </span>
-                   
-                  )}
-                
+                    )}
+                    {value.stats.general.opScoreBadge != "" && (
+                      <span className={classes.chipColorPurple}> {value.stats.general.opScoreBadge} </span>
+
+                    )}
+                  </Typography>
                 </Grid>
               </Grid>
               <Grid
@@ -243,14 +307,14 @@ export default function ChampionStatCell(props: ChampionStatCellProps) {
               >
                 <Grid
                   item
-                  xs={12}
+                  xs={11}
                   className={classes.helveticaF + " " + classes.grey2Color}
                 >
                   Level {value.champion.level}
                 </Grid>
                 <Grid
                   item
-                  xs={12}
+                  xs={11}
                   className={
                     classes.appleSDGothicNeo + " " + classes.grey2Color
                   }
@@ -259,17 +323,17 @@ export default function ChampionStatCell(props: ChampionStatCellProps) {
                 </Grid>
                 <Grid
                   item
-                  xs={12}
+                  xs={11}
                   className={classes.helveticaF + " " + classes.redWR}
                 >
-                  P/KILL {value.stats.general.contributionForKillRate}%
+                  P/KILL {value.stats.general.contributionForKillRate}
                 </Grid>
               </Grid>
               <Grid item xs container direction="row" spacing={1}>
                 <Grid item xs={12} className={classes.firstLine}>
                   <GridList cols={4} spacing={1}>
                     {value.items.map((tile) => (
-                      <Tooltip title={tile.imageUrl}>
+                      <HtmlTooltip title={returnDesc(tile)} arrow >
                         <GridListTile
                           key={tile.imageUrl}
                           cols={1}
@@ -277,7 +341,7 @@ export default function ChampionStatCell(props: ChampionStatCellProps) {
                         >
                           <img src={tile.imageUrl} alt={tile.imageUrl} />
                         </GridListTile>
-                      </Tooltip>
+                      </HtmlTooltip>
                     ))}
                   </GridList>
                 </Grid>
@@ -287,12 +351,19 @@ export default function ChampionStatCell(props: ChampionStatCellProps) {
                   className={
                     classes.helveticaF + " " + classes.blackColor + " "
                   }
-                >
-                  controle ward {value.stats.ward.sightWardsBought + value.stats.ward.visionWardsBought}
+                  container spacing={2}>
+                  <Grid item xs={1}>
+                    {value.isWin ? <img src={require('../assets/icon-ward-blue.svg')} /> : <img src={require('../assets/icon-ward-red.svg')} />
+
+                    }
+                  </Grid>
+                  <Grid item xs={9}>
+                    controle ward {value.stats.ward.sightWardsBought + value.stats.ward.visionWardsBought}
+                  </Grid>
                 </Grid>
               </Grid>
               <Grid item xs container direction="row" spacing={1}>
-               <TeamDisplayCell gameId={value.gameId} userName={value.summonerName} key={value.gameId}/>
+                <TeamDisplayCell gameId={value.gameId} userName={value.summonerName} key={value.gameId} />
               </Grid>
             </Grid>
           </Paper>

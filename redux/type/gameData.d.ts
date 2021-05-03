@@ -10,6 +10,8 @@ export interface Spell {
 
 export interface Item {
     imageUrl: string;
+    desc: string
+
 }
 
 export interface General {

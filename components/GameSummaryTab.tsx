@@ -112,8 +112,6 @@ export default function GameSummaryTab() {
   const [tabIndex, setTabIndex] = useState<Number>(0);
 
   const handleChange = (e: React.ChangeEvent<{}>, value: any) => {
-    console.log("change !");
-    console.log(value as Number);
     setTabIndex(value as Number);
   };
 

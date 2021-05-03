@@ -15,6 +15,7 @@ import { getSumonerSummary } from './redux/actionSummonerSummary';
 import { getGameData } from './redux/actionGameData';
 import { getChampionUsage } from './redux/actionChampionUsage';
 import { IGameData } from './redux/type/gameData';
+import { getItems } from './redux/actionItem';
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -63,6 +64,7 @@ export default function Main() {
     dispatch(getChampionUsage(searchData));
 
     dispatch(getGameData(searchData))
+    dispatch(getItems())
 
 
   }, [searchData]);

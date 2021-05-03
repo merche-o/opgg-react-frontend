@@ -14,10 +14,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
         },
         name: {
-            fontFamily: "Helvetica",
-            fontSize: "11px",
-            letterSpacing: "-0.42px",
-            color: "#555555",
+          
         },
         gridTileStyle: {
             position: "relative",
@@ -30,6 +27,19 @@ const useStyles = makeStyles((theme: Theme) =>
             overflow: "hidden",
             // height: '100% !important'
           },
+          textWrapping:{
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+            display:"inline-block",
+            whiteSpace: "nowrap",
+            maxWidth:"45px",
+            width:"45px",
+            fontFamily: "Helvetica",
+            fontSize: "11px",
+            letterSpacing: "-0.42px",
+            color: "#555555",
+
+          }
     }));
 
 interface TeamDisplayellProps {
@@ -70,7 +80,7 @@ export default function TeamDisplayCell(props: TeamDisplayellProps) {
                     { 
                      
                     teamData?.teams.map ((team, index) => { 
-                    return (   <Grid container direction='row' item xs={6} className={classes.name} key={team.teamId} >
+                    return (   <Grid container direction='row' item xs={5} className={classes.name} key={team.teamId} >
 
                     {team.players.map((value, index) => { 
                         return (
@@ -79,23 +89,14 @@ export default function TeamDisplayCell(props: TeamDisplayellProps) {
                             <img src={value.champion.imageUrl} />
                             </Grid>
                             <Grid item xs={1} >
-                            <Typography noWrap key={value.summonerId}>{value.summonerName}</Typography>
+                            <Typography noWrap className={classes.textWrapping} key={value.summonerId}>{value.summonerName}</Typography>
                             </Grid>
                             </Grid>
                         )
                         })}
                             </Grid>)})
-                }
-            
-
-  
-
-              
-         
-                    
+                }   
             </Grid>
-
-
         </div>
     );
 }
