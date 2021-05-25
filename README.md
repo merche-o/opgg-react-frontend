@@ -19,23 +19,6 @@ It will launch `expo` portal, you will just need to click on `run in web browser
 - `expo start`
 - on the `expo` portal click on `run in web browser`
 
-### What's left to do but i didn't have enough time :(
-
-- finalize design integration (tab design, check all responsive breakpoint, font size/color/type, doublecheck spacing/padding/size)
-- Display teams members info on the game history.
-- Search user : we can't see preview details of user while typing in the searchbar
-- I have a date display issue. the library i'm used too is deprecated, didn't have time to fine an alternative.
-- Should have add placeholder data if the data is missing
-
-### API limitation
-
-I don't know if it was on purpose but some data were missing in the API
-
-- League data : - Prefered position + match play with this position
-- Average Game data : - We canmot filter the data by type of game 
-                      - kill participation data is not given by the API, I might would have been able to calculate it, but i don't have the formula :(
-- History Game : - The champion name is not given by the API, only imgurl and level. 
-
 ### File structure
 
 - Main.tsx : The app start point with its global structure
