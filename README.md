@@ -1,4 +1,7 @@
-# frontend
+
+# OPGG
+
+Here is a clone of the OP.GG website done using React and expo.io
 
 ### Installation
 
